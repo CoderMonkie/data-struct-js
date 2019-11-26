@@ -22,8 +22,26 @@ function Stack() {
         return __items.length
     }
 
+    Stack.prototype.clear = function () {
+        __items.clear()
+    }
+
     Stack.prototype.toString = function () {
         return __items.join(' ')
     }
-}
 
+    // TODO: need deep-copy
+    Stack.prototype.getItems = function () {
+        return __items  // TODO
+    }
+
+    Stack.prototype.traverse = function (cb) {
+        if (!cb || toString.call(cb) !== '[object Function]') return
+
+        var items = this.getItems()
+        for (var index = items.length - 1; index >= 0; index--) {
+            var element = items[index];
+            cb(element)
+        }
+    }
+}

@@ -21,6 +21,10 @@ function Queue() {
         return __items.length
     }
 
+    Stack.prototype.clear = function () {
+        __items.clear()
+    }
+
     Queue.prototype.toString = function () {
         return __items.join(' ')
     }
