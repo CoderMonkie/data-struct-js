@@ -1,31 +1,35 @@
 function Queue() {
-    var __items = []
+    this.__items = []
 
     Queue.prototype.enqueue = function (element) {
-        __items.push(element)
+        this.__items.push(element)
     }
 
     Queue.prototype.dequeue = function () {
-        return __items.shift()
+        return this.__items.shift()
     }
 
     Queue.prototype.front = function () {
-        return __items.length === 0 ? undefined : __items[0]
+        return this.__items.length === 0 ? undefined : this.getItems()[0]
+    }
+
+    Queue.prototype.getItems = function () {
+        return deepCopy(this.__items)
     }
 
     Queue.prototype.isEmpty = function () {
-        return __items.length === 0
+        return this.__items.length === 0
     }
 
     Queue.prototype.size = function () {
-        return __items.length
+        return this.__items.length
     }
 
     Stack.prototype.clear = function () {
-        __items.clear()
+        this.__items.length = 0
     }
 
     Queue.prototype.toString = function () {
-        return __items.join(' ')
+        return this.__items.join(' ')
     }
 }

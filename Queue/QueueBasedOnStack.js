@@ -1,37 +1,37 @@
 function QueueBasedOnStack() {
 
-    var stack = new Stack()
-    var stackReverse = new Stack()
+    this.__inStack = new Stack()
+    this.__outStack = new Stack()
 
     QueueBasedOnStack.prototype.enqueue = function(element) {
-        stack.push(element)
+        this.__inStack.push(element)
     }
 
     QueueBasedOnStack.prototype.dequeue = function() {
-        if(stackReverse.isEmpty()) {
-            while(!stack.isEmpty()) {
-                stackReverse.push(stack.pop())
+        if(this.__outStack.isEmpty()) {
+            while(!this.__inStack.isEmpty()) {
+                this.__outStack.push(this.__inStack.pop())
             }
         }
-        return stackReverse.pop()
+        return this.__outStack.pop()
     }
 
     QueueBasedOnStack.prototype.size = function() {
-        return (stack.size() + stackReverse.size())
+        return (this.__inStack.size() + this.__outStack.size())
+    }
+
+    QueueBasedOnStack.prototype.clear = function() {
+        this.__inStack.clear() 
+        this.__outStack.clear()
     }
 
     QueueBasedOnStack.prototype.toString = function() {
-        var part1 = stackReverse.getItems()
-        var part2 = stack.getItems()
-        var ret = '['
-        while(part1.length) {
-            ret += ' '+ part1.pop()
-        }
-        while(part2.length) {
-            ret += ' '+ part2.shift()
-        }
-        ret += ']'
-        return ret
+        var items = this.getItems()
+        return items.join('--')
+    }
+
+    QueueBasedOnStack.prototype.getItems = function() {
+        return this.__inStack.getItems().concat(this.__outStack.getItems().reverse())
     }
 }
 
@@ -41,26 +41,17 @@ function QueueBasedOnStack() {
 console.log('----Test: QueueBasedOnStack----')
 
 var qs = new QueueBasedOnStack()
-qs.enqueue('~')
+qs.enqueue('A')
+console.log('after enqueue: ', qs.toString())
+qs.enqueue('B')
+console.log('after enqueue: ', qs.toString())
 qs.enqueue('C')
-qs.enqueue('o')
-qs.enqueue('d')
-qs.enqueue('e')
-qs.enqueue('r')
-qs.enqueue('-')
-qs.enqueue('-')
-console.log('before dequeue: ', qs.toString())
+qs.enqueue('D')
+qs.enqueue('E')
+console.log('after enqueue: ', qs.toString())
 qs.dequeue()
 console.log('after dequeue: ', qs.toString())
 qs.dequeue()
 console.log('after dequeue: ', qs.toString())
-qs.enqueue('M')
-qs.enqueue('o')
-qs.enqueue('n')
-qs.enqueue('k')
-qs.enqueue('e')
-qs.enqueue('y')
-qs.enqueue('~')
-console.log('before dequeue: ', qs.toString())
 qs.dequeue()
 console.log('after dequeue: ', qs.toString())
