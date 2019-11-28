@@ -10,25 +10,33 @@ function PriorityQueue() {
         this.__element = element
         // max-level: 0
         this.__priority = priority
+
+        QueueElement.prototype.priority = function() {
+            return this.__priority
+        }
+
+        QueueElement.prototype.toString = function() {
+            return this.__element.toString.apply(this.__element)
+        }
     }
 
     PriorityQueue.prototype.enqueue = function(element, priority) {
         var queueElement = new QueueElement(element, priority)
 
-        if(__items.length === 0) {
-            __items.push(queueElement)
+        if(this.__items.length === 0) {
+            this.__items.push(queueElement)
         }
         else {
             var added = false
-            for(var i=0;i<__items.length;i++) {
-                if(queueElement.priority < __items[i].priority) {
-                    __items.splice(i, 0, queueElement)
+            for(var i=0;i<this.__items.length;i++) {
+                if(queueElement.priority() < this.__items[i].priority()) {
+                    this.__items.splice(i, 0, queueElement)
                     added = true
                     break
                 }
             }
             if(!added) {
-                __items.push(queueElement)
+                this.__items.push(queueElement)
             }
         }
     }
@@ -37,7 +45,7 @@ function PriorityQueue() {
         return this.getItems().shift()
     }
 
-    Queue.prototype.front = function () {
+    PriorityQueue.prototype.front = function () {
         return this.__items.length === 0 ? undefined : this.getItems()[0]
     }
 
@@ -45,15 +53,35 @@ function PriorityQueue() {
         return deepCopy(this.__items)
     }
     
-    Queue.prototype.isEmpty = function () {
+    PriorityQueue.prototype.isEmpty = function () {
         return this.__items.length === 0
     }
 
-    Queue.prototype.size = function () {
+    PriorityQueue.prototype.size = function () {
         return this.__items.length
     }
 
-    Stack.prototype.clear = function () {
+    PriorityQueue.prototype.clear = function () {
         this.__items.length = 0
     }
+
+    PriorityQueue.prototype.toString = function () {
+        var arrStr = this.__items.map((qe)=>{
+            return qe.toString()
+        })
+        return arrStr.join('\r\n')
+    }
 }
+
+// ---------------------------------------------
+// Test: PriorityQueue
+// ---------------------------------------------
+console.log('----Test: QueueBasedOnStack----')
+
+var pq = new PriorityQueue()
+
+pq.enqueue({name: '1-First Element | Priority:1', age: 18, toString: function(){return this.name}}, 1)
+pq.enqueue({name: '2-Second Element | Priority:3', age: 18, toString: function(){return this.name}}, 3)
+pq.enqueue({name: '3-Third Element | Priority:2', age: 18, toString: function(){return this.name}}, 2)
+
+console.log(pq.toString())
