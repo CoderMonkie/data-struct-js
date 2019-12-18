@@ -57,7 +57,7 @@ function deepCopy(source) {
         dest = {}
         for(var p in source){
             if(source.hasOwnProperty(p)){
-                dest[p]=source[p]
+                dest[p]=deepCopy(source[p])
             }
         }
     }
