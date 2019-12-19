@@ -1,0 +1,29 @@
+{
+  "name": "data-struct-js",
+  "version": "0.0.1",
+  "description": "Provide commonly used data-structures for javascript.",
+  "main": "index.js",
+  "scripts": {
+    "compile": "npx babel src/ --out-dir lib"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CoderMonkie/data-struct-js.git"
+  },
+  "keywords": [
+    "data-structure",
+    "javascript"
+  ],
+  "author": "CoderMonkey <maonianyou@gmail.com> (http://github.com/codermonkie)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/CoderMonkie/data-struct-js/issues"
+  },
+  "homepage": "https://github.com/CoderMonkie/data-struct-js#readme",
+  "devDependencies": {
+    "@babel/cli": "^7.7.5",
+    "@babel/core": "^7.7.5",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/preset-env": "^7.7.6"
+  }
+}
