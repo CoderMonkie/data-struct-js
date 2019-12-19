@@ -1,3 +1,5 @@
+import { deepCopy } from "./common_utils"
+
 /**
  *基于数组实现的数据结构的基类
  *
@@ -5,7 +7,17 @@
  */
 class ArrayBasedStruct {
     constructor() {
-        this._items = []
+        this.__items = []
+    }
+
+    /**
+     *获取所有元素
+     *
+     * @returns 元素集合
+     * @memberof Stack
+     */
+    getItems () {
+        return deepCopy(this.__items)
     }
 
     /**
@@ -15,7 +27,7 @@ class ArrayBasedStruct {
      * @memberof ArrayBasedStruct
      */
     get isEmpty() {
-        return this._items.length === 0
+        return this.__items.length === 0
     }
 
     /**
@@ -25,7 +37,7 @@ class ArrayBasedStruct {
      * @memberof ArrayBasedStruct
      */
     get size() {
-        return this._items.length
+        return this.__items.length
     }
 
     /**
@@ -34,7 +46,7 @@ class ArrayBasedStruct {
      * @memberof ArrayBasedStruct
      */
     clear() {
-        this._items.length = 0
+        this.__items.length = 0
     }
 }
 

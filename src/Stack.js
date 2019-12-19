@@ -1,6 +1,16 @@
-import { deepCopy, isFunction } from './common_utils'
+import {
+    deepCopy,
+    isFunction
+} from './common_utils'
 import ArrayBasedStruct from './ArrayBasedStruct'
 
+/**
+ *栈结构
+ *
+ * @export
+ * @class Stack
+ * @extends {ArrayBasedStruct}
+ */
 export default class Stack extends ArrayBasedStruct {
     constructor() {
         super()
@@ -12,8 +22,8 @@ export default class Stack extends ArrayBasedStruct {
      * @param {*} element
      * @memberof Stack
      */
-    push (element) {
-        return this._items.push(element)
+    push(element) {
+        return this.__items.push(element)
     }
 
     /**
@@ -22,28 +32,19 @@ export default class Stack extends ArrayBasedStruct {
      * @returns 栈顶元素
      * @memberof Stack
      */
-    pop () {
-        return this._items.pop()
+    pop() {
+        return this.__items.pop()
     }
+
     /**
      *查看栈顶元素
      *
      * @returns 栈顶元素
      * @memberof Stack
      */
-    peek () {
-        if (!this._items.length) return null
-        return deepCopy(this._items[this._items.length - 1])
-    }
-
-    /**
-     *获取所有栈元素
-     *
-     * @returns 栈元素集合
-     * @memberof Stack
-     */
-    getItems () {
-        return deepCopy(this._items)
+    peek() {
+        if (!this.__items.length) return undefined
+        return deepCopy(this.__items[this.__items.length - 1])
     }
 
     /**
@@ -53,11 +54,11 @@ export default class Stack extends ArrayBasedStruct {
      * @param {boolean} [reversal=false]
      * @memberof Stack
      */
-    traverse (callback, reversal=false) {
+    traverse(callback, reversal = false) {
         // 检查回调函数
         if (!isFunction(callback)) return
 
-        var items = this.getItems(this._items)
+        var items = this.getItems(this.__items)
         var from = reversal ? items.length - 1 : 0
         var to = reversal ? 0 : items.length - 1
         // 循环条件
@@ -76,9 +77,9 @@ export default class Stack extends ArrayBasedStruct {
                 return current + 1
             }
         }
-        
+
         // 进行遍历
-        for (var index = from; loopCondition(index); index=stepIn(index)) {
+        for (var index = from; loopCondition(index); index = stepIn(index)) {
             var element = items[index];
             callback(element, index)
         }
@@ -90,7 +91,7 @@ export default class Stack extends ArrayBasedStruct {
      * @returns
      * @memberof Stack
      */
-    toString () {
-        return this._items.map(element=>element.toString()).join(' ')
+    toString() {
+        return this.__items.map(element => element.toString()).join(' ')
     }
 }
