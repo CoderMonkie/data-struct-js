@@ -101,7 +101,6 @@ function OSet () {
             if (!targetSet.has(item)) {
                 return false
             }
-            
         }
         return true
     }
@@ -113,7 +112,6 @@ function OSet () {
             if (!this.has(item)) {
                 return false
             }
-            
         }
         return true
     }
