@@ -2,7 +2,7 @@ function Queue() {
     this.__items = []
 
     Queue.prototype.enqueue = function (element) {
-        this.__items.push(element)
+        return this.__items.push(element)
     }
 
     Queue.prototype.dequeue = function () {
