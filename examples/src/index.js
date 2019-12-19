@@ -1,16 +1,22 @@
-// const { deepCopy, isFunction } = require('../../lib/common_utils')
-// const ArrayBasedStruct = require('../../lib/ArrayBasedStruct')
-const Stack = require('../../src/Stack.js')
+import Stack from '../../lib/Stack'
 
 var stack = new Stack()
 for (var i = 0; i < 5; i++) {
     stack.push(i)
 }
-console.log('isEmpty: ', stack.isEmpty())
-console.log('size: ', stack.size())
+console.log('isEmpty: ', stack.isEmpty)
+console.log('size: ', stack.size)
 console.log(stack.toString())
-while (stack.size()) {
-    console.log(`pop: `, stack.pop())
-}
-console.log('isEmpty: ', stack.isEmpty())
-console.log('size: ', stack.size())
+console.log(`pop: `, stack.pop())
+
+stack.traverse((ele,index)=>{
+    console.log(`Traversing-Stack:${index}: ${ele}`)
+})
+
+stack.traverse((ele,index)=>{
+    console.log(`Traversing-Stack:${index}: ${ele}`)
+}, true)
+
+console.log(`claer: `, stack.clear())
+console.log('isEmpty: ', stack.isEmpty)
+console.log('size: ', stack.size)

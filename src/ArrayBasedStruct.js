@@ -37,3 +37,5 @@ class ArrayBasedStruct {
         this._items.length = 0
     }
 }
+
+export default ArrayBasedStruct

@@ -35,6 +35,6 @@ export function deepCopy(source) {
  * @returns true：是函数 false：不是函数
  */
 export function isFunction (func) {
-    if (!cb || toString.call(cb) !== '[object Function]') return false
+    if (!func || toString.call(func) !== '[object Function]') return false
     return true
 }
