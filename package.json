@@ -1,6 +1,6 @@
 {
   "name": "data-struct-js",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Provide commonly used data-structures for javascript.",
   "main": "index.js",
   "scripts": {
