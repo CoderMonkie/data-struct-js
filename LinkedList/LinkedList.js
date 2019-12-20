@@ -115,7 +115,12 @@ function LinkedList() {
             current = current.next
         }
         // 3.使当前元素不再被引用
-        previous.next = current.next
+        if (previous == null) {
+            // position=0 删除首元素的时候
+            this.__head = current.next
+        } else {
+            previous.next = current.next
+        }
 
         // 4.内部计数减1
         this.__count -= 1
