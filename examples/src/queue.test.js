@@ -2,7 +2,7 @@ import Queue from '../../lib/Queue'
 
 export default testQueue = function() {
 
-    console.log('----------testQueue----------')
+    console.log('----------Test: Queue----------')
 
     var queue = new Queue()
     for (var i = 0; i < 5; i++) {

@@ -45,7 +45,7 @@ export default class PriorityQueue extends Queue {
     /**
      *重写 toString 方法
      *
-     * @returns
+     * @returns 字符串
      * @memberof PriorityQueue
      */
     toString() {
@@ -78,6 +78,17 @@ class QueueElement {
         this.__element = element
         // max-level: 0
         this.__priority = priority
+
+        // toString 实例方法
+        this.toString = function(){
+            return this.__element.toString.apply(this.__element)
+        }
+        /**
+         * 为什么要添加实例方法而不是只重写原型链方法？
+         * 因为深拷贝时只针对自有属性/方法，不会复制原型链上的，
+         * 这样，重写的方法，就不会在深拷贝中丢失。
+         * 可以让原型链上的该方法同时也指向该实例方法。
+         */
     }
 
     /**
@@ -91,12 +102,13 @@ class QueueElement {
     }
 
     /**
-     *重写 toString 方法
+     *重写原型链上的 toString 方法
      *
-     * @returns
+     * @returns 字符串
      * @memberof QueueElement
      */
     toString() {
-        return this.__element.toString.apply(this.__element)
+        // 原型链方法 toString = 实例方法 toString
+        return this.toString()
     }
 }

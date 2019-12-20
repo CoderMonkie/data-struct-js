@@ -2,7 +2,7 @@ import Stack from '../../lib/Stack'
 
 export default function testStack() {
 
-    console.log('----------testStack----------')
+    console.log('----------Test: Stack----------')
 
     var stack = new Stack()
     for (var i = 0; i < 5; i++) {
