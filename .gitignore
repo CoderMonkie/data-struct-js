@@ -82,3 +82,4 @@ typings/
 # customize added
 lib/
 examples/dist/
+package-lock.json
