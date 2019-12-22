@@ -86,6 +86,7 @@ export default function testDoublyLinkedList() {
     console.log(`8. Get last element \r\n ${lastActivity}`)
 
     // 双向遍历
+    console.log(`9. Traverse: \r\n`)
     const traverseCb = function(element) {
         console.log(`traversing: ${element}`)
     }
