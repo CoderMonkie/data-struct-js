@@ -1,8 +1,8 @@
-import LinkedList from '../../lib/LinkedList/LinkedList'
+import DoublyLinkedList from '../../lib/LinkedList/DoublyLinkedList'
 
-export default function testLinkedList() {
+export default function testDoublyLinkedList() {
 
-    console.log('----------Test: LinkedList----------')
+    console.log('----------Test: DoublyLinkedList----------')
 
     /**
      * SDLC consists of following activities:
@@ -19,7 +19,7 @@ export default function testLinkedList() {
             this.step = step
             this.activity = activity
             this.toString = function() {
-                return `{Step: ${this.step}, Activity: ${this.activity}}`
+                return `{Step: ${this.step} Activity: ${this.activity}}`
             }
         }
 
@@ -37,7 +37,7 @@ export default function testLinkedList() {
     let activity5 = new Activity(5, 'Deployment and maintenance')
     let activity6 = new Activity(6, 'Maintaining')
 
-    let lst = new LinkedList()
+    let lst = new DoublyLinkedList()
 
     // 添加元素
     lst.append(activity1)
@@ -60,11 +60,13 @@ export default function testLinkedList() {
     console.log(`3. Remove No.6 element \r\n ${lst.toString()}`)
 
     // 获取元素数据
-    let data4 = lst.findAt(4)
+    let data2 = lst.findAt(2)
+    let data5 = lst.findAt(5)
     
-    console.log(`4. Get No.4 element \r\n ${data4}`)
+    console.log(`4. Get element by index \r\n index-2: ${data2} \r\n index-5: ${data5}`)
 
     // 更新元素数据
+    let data4 = lst.findAt(4)
     data4.activity = "Documentation and manual"
     lst.update(4, data4)
 
@@ -79,7 +81,14 @@ export default function testLinkedList() {
     
     console.log(`7. Get first element \r\n ${firstActivity}`)
 
-    let lastActivity = lst.lastNode
+    let lastActivity = lst.lastNode 
     
     console.log(`8. Get last element \r\n ${lastActivity}`)
+
+    // 双向遍历
+    const traverseCb = function(element) {
+        console.log(`traversing: ${element}`)
+    }
+    lst.traverse(traverseCb)
+    lst.traverse(traverseCb, true)
 }

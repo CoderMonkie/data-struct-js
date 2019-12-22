@@ -1,6 +1,11 @@
 import {
     comparer
-} from './common_utils'
+} from '../common_utils'
+
+import {
+    LinkedListNode,
+    loopToFind,
+} from './LinkedListNode'
 
 /**
  *链表数据结构
@@ -10,12 +15,7 @@ import {
  */
 export default class LinkedList {
     constructor() {
-        // 记录链表首尾
-        this.__head = null
-        this.__tail = null
-
-        // 记录链表元素个数
-        this.__count = 0
+        this.clear()
     }
 
     /**
@@ -40,12 +40,32 @@ export default class LinkedList {
 
     /**
      *获取链表的首元素数据
-     *
+     * @deprecated since v0.05 change to use [head] instead
      * @readonly
      * @memberof LinkedList
      */
     get firstNode() {
-        return this.find(0)
+        return this.findAt(0)
+    }
+
+    /**
+     *获取链表的首元素数据
+     *
+     * @readonly
+     * @memberof LinkedList
+     */
+    get head() {
+        return this.__head && this.__head.data
+    }
+
+    /**
+     *获取链表的尾元素数据
+     * @deprecated since v0.05 change to use [tail] instead
+     * @readonly
+     * @memberof LinkedList
+     */
+    get lastNode() {
+        return this.findAt(this.size - 1)
     }
 
     /**
@@ -54,8 +74,8 @@ export default class LinkedList {
      * @readonly
      * @memberof LinkedList
      */
-    get lastNode() {
-        return this.find(this.size - 1)
+    get tail() {
+        return this.__tail && this.__tail.data
     }
 
     /**
@@ -67,7 +87,7 @@ export default class LinkedList {
      */
     append(data) {
         // 1.创建新元素
-        const newNode = new Node(data)
+        const newNode = new LinkedListNode(data)
 
         // 2.1链表为空时，直接添加到末尾
         if (this.isEmpty) {
@@ -99,7 +119,7 @@ export default class LinkedList {
         if (position < 0 || position > this.__count) return false
 
         // 2.创建新元素
-        var newNode = new Node(data)
+        var newNode = new LinkedListNode(data)
 
         // 3.1插入到链表头部
         if (position === 0) {
@@ -133,12 +153,11 @@ export default class LinkedList {
         return true
     }
 
-
     /**
      *删除链表中某个元素
      *
      * @param {*} data 元素数据
-     * @param {*} [customizedComparer=null] 可选参数，指定比对方法
+     * @param {function} [customizedComparer=null] 可选参数，指定比对方法
      * @returns 删除结果：true/false
      * @memberof LinkedList
      */
@@ -199,7 +218,7 @@ export default class LinkedList {
      *更新链表指定位置的元素
      *
      * @param {*} position 位置下标
-     * @param {*} data 数据
+     * @param {*} data 新数据
      * @returns 更新结果：true/false
      * @memberof LinkedList
      */
@@ -224,13 +243,14 @@ export default class LinkedList {
      * @returns 元素数据
      * @memberof LinkedList
      */
-    find(position) {
+    findAt(position) {
         // 1.边界检查
         if (position < 0 || position >= this.__count) return undefined
 
         // 2.找到指定位置元素
         const current = loopToFind(position, this.__head)
 
+        // 3.返回该节点元素的数据部分
         return current.data
     }
 
@@ -247,6 +267,7 @@ export default class LinkedList {
         let current = this.__head
         const comparerFunc = comparer(customizedComparer)
 
+        // 根据指点数据查找节点元素
         while (current) {
             if (comparerFunc(current.data, data)) {
                 return index
@@ -255,7 +276,22 @@ export default class LinkedList {
             index += 1
         }
 
+        // 没有找到符合的节点元素
         return -1
+    }
+
+    traverse(callback) {
+        // 参数检查（回调函数）
+        if(!callback || !isFunction(callback)) return
+
+        // 起始元素设为 head
+        let current = this.__head
+
+        // 头部起始，向后遍历
+        while (current) {
+            callback(current.data)
+            current = current.next
+        }
     }
 
     /**
@@ -264,7 +300,11 @@ export default class LinkedList {
      * @memberof LinkedList
      */
     clear() {
+        // 记录链表首尾
         this.__head = null
+        this.__tail = null
+
+        // 记录链表元素个数
         this.__count = 0
     }
 
@@ -287,42 +327,4 @@ export default class LinkedList {
         str += `\r\nCount: ${this.size}`
         return str
     }
-}
-
-// private part ->
-
-/**
- *链表数据结构内部用元素节点类
- *注意：不应被 return 到外部
- *
- * @class Node
- */
-class Node {
-    constructor(data, next = null) {
-        this.data = data
-        this.next = next
-
-        this.toString = function() {
-            return this.data.toString.apply(this.data)
-        }
-    }
-
-    toString() {
-        return this.toString()
-    }
-}
-
-/**
- *链表内部用查找方法
- *
- * @param {number} position 位置下标
- * @param {Node} node 元素节点
- * @returns 指定位置的元素节点
- */
-const loopToFind = function (position, node) {
-    let index = 0
-    while (index++ < position) {
-        node = node.next
-    }
-    return node
 }
