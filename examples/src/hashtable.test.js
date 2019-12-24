@@ -86,4 +86,6 @@ export default function testHashTable() {
     hashTable.delete('TalyorSwift')
     hashTable.delete('JohnLennon')
     // Triggered! resize to 3
+
+    console.log(hashTable)
 }

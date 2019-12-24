@@ -2,8 +2,14 @@ import {
     getNextPrime
 } from '../common/toollib'
 
-const MIN_LIMIT = 3
+const MIN_LIMIT = 11
 
+/**
+ *哈希表
+ *
+ * @export
+ * @class HashTable
+ */
 export default class HashTable {
     constructor() {
         this.__storage = []
@@ -200,13 +206,17 @@ export default class HashTable {
      * @memberof HashTable
      */
     resize(newLimit) {
-        let old = this.__storage
+        // 1. 保存旧数据
+        let oldStorage = this.__storage
+
+        // 2. 重置当前哈希表 & [重置新容量]
         this.__storage = []
         this.__count = 0
         this.__limit = newLimit
 
-        for (let i = 0; i < old.size; i++) {
-            const bucket = old[size];
+        // 3. 恢复旧数据
+        for (let i = 0; i < oldStorage.length; i++) {
+            const bucket = oldStorage[i];
 
             if (!bucket) continue
 
