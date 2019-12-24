@@ -1,4 +1,6 @@
-import { deepCopy } from "./common_utils"
+import {
+    deepCopy
+} from "./common/toollib"
 
 /**
  *基于数组实现的数据结构的基类
@@ -16,7 +18,7 @@ class ArrayBasedStruct {
      * @returns 元素集合
      * @memberof Stack
      */
-    getItems () {
+    getItems() {
         return deepCopy(this.__items)
     }
 

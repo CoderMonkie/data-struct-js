@@ -80,7 +80,7 @@ class QueueElement {
         this.__priority = priority
 
         // toString 实例方法
-        this.toString = function(){
+        this.toString = function () {
             return this.__element.toString.apply(this.__element)
         }
         /**

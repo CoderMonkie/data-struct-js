@@ -1,7 +1,6 @@
 import {
     comparer
-} from '../common_utils'
-
+} from '../common/toollib'
 import {
     LinkedListNode,
     loopToFind,

@@ -1,7 +1,7 @@
 import {
     deepCopy,
     isFunction
-} from './common_utils'
+} from './common/toollib'
 import ArrayBasedStruct from './ArrayBasedStruct'
 
 /**

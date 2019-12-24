@@ -37,8 +37,7 @@ const loopToFind = function (position, node, lastIndex = 0) {
         while (index-- > position) {
             node = node.prev
         }
-    }
-    else {
+    } else {
         // seek from head
         while (index++ < position) {
             node = node.next
@@ -46,6 +45,18 @@ const loopToFind = function (position, node, lastIndex = 0) {
     }
 
     return node
+}
+
+/**
+ *检查指定的位置是否处于链表的后半部分
+ *以改变查找的顺序
+ * @param {number} size 链表元素总个数
+ * @param {number} position 指定的位置
+ * @returns true:从末尾开始查找 false:从头部开始查找
+ */
+const needReversal = function (size, position) {
+    const middle = Math.floor(size / 2)
+    return middle < position
 }
 
 /**
@@ -59,26 +70,14 @@ const loopToFind = function (position, node, lastIndex = 0) {
  * @param {LinkedListNode} tail 末尾元素
  * @returns 链表节点元素
  */
-const doublyFindAt = function(size, position, head, tail) {
+const doublyFindAt = function (size, position, head, tail) {
     // 1.根据所在位置判断是否从末尾开始查找
     const reversal = needReversal(size, position)
 
     // 2.找到指定下标位置元素
-    return (reversal
-        ? loopToFind(position, tail, size - 1)
-        : loopToFind(position, head))
-}
-
-/**
- *检查指定的位置是否处于链表的后半部分
- *以改变查找的顺序
- * @param {number} size 链表元素总个数
- * @param {number} position 指定的位置
- * @returns true:从末尾开始查找 false:从头部开始查找
- */
-const needReversal = function (size, position) {
-    const middle = Math.floor(size / 2)
-    return middle < position
+    return (reversal ?
+        loopToFind(position, tail, size - 1) :
+        loopToFind(position, head))
 }
 
 export {

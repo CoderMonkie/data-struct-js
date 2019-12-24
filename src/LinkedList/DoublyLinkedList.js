@@ -1,5 +1,8 @@
 import LinkedList from './LinkedList'
-import { isFunction, comparer } from '../common_utils'
+import {
+    isFunction,
+    comparer
+} from '../common/toollib'
 import {
     LinkedListNode,
     loopToFind,
@@ -189,9 +192,9 @@ export default class DoublyLinkedList extends LinkedList {
         const reversal = needReversal(this.size, position)
 
         // 3.找到指定位置元素
-        const current = reversal
-            ? loopToFind(position, this.__tail, this.size - 1)
-            : loopToFind(position, this.__head, null)
+        const current = reversal ?
+            loopToFind(position, this.__tail, this.size - 1) :
+            loopToFind(position, this.__head, null)
 
         // 4.返回该节点元素的数据部分
         return current.data
@@ -271,7 +274,8 @@ export default class DoublyLinkedList extends LinkedList {
      */
     traverse(callback, reversal = false) {
         reversal
-            ? this.backwardTraverse(callback)
-            : this.forwardTraverse(callback)
+            ?
+            this.backwardTraverse(callback) :
+            this.forwardTraverse(callback)
     }
 }
