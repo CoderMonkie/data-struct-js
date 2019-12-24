@@ -34,12 +34,12 @@ more examples see `data-struct-js/examples`
 + ProirityQueue
 + LinkedList
 + DoublyLinkedList
++ HashTalbe
 
 ---
 
 coming soon..
 
-+ HashTalbe
 + Tree
 + BinarySearchTree
 + BlackRedTree
