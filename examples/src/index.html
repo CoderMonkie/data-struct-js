@@ -1,11 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Demo of data-struct-js</title>
 </head>
-<body>
+<style>
+    div {
+        border-radius: 5px;
+    }
+
+    button {
+        min-width: 50px;
+        height: 30px;
+        border-radius: 5px;
+        background-color: lightskyblue;
+    }
+
+    .btn-container {
+        display: flex;
+        justify-content: space-around;
+        background-color: beige;
+        padding: 10px;
+        flex-wrap: wrap;
+        border: 1px solid darkgray;
+    }
+
+    .log-info {
+        background-color: lightgrey;
+        padding: 10px;
+        border-bottom: solid 1px white;
+    }
+</style>
+
+<body style="background-color: lightblue;">
+    <header>
+        <h2>Show run-result of [data-struct-js] examples</h2>
+        <p><a href="https://github.com/codermonkie/data-struct-js">Github/data-struct-js: if you like~ star me~</a></p>
+    </header>
+    <main>
+        <button id='btnClear'>Clear</button>
+        <div id='btnContainer' class="btn-container">
+            <button id='btnStack'>Stack</button>
+            <button id='btnQueue'>Queue</button>
+            <button id='btnPriorityQueue'>PriorityQueue</button>
+            <button id='btnLinkedList'>LinkedList</button>
+            <button id='btnDoublyLinkedList'>DoublyLinkedList</button>
+            <button id='btnHashTable'>HashTable</button>
+        </div>
+    </main>
 </body>
+
 </html>

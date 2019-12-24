@@ -114,7 +114,6 @@ more examples see `data-struct-js/examples`
 
 coming soon..
 
-+ Tree
 + BinarySearchTree
 + BlackRedTree
 + Graph
