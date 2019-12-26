@@ -22,7 +22,7 @@ export default class Queue extends ArrayBasedStruct {
      * @returns
      * @memberof Queue
      */
-    enque(element) {
+    enqueue(element) {
         return this.__items.push(element)
     }
 
@@ -32,7 +32,7 @@ export default class Queue extends ArrayBasedStruct {
      * @returns
      * @memberof Queue
      */
-    deque() {
+    dequeue() {
         return this.__items.shift()
     }
 

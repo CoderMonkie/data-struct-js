@@ -6,11 +6,11 @@ export default function testQueue() {
 
     var queue = new Queue()
     for (var i = 0; i < 5; i++) {
-        queue.enque(i)
+        queue.enqueue(i)
     }
     console.log('isEmpty: ', queue.isEmpty)
     console.log('size: ', queue.size)
-    console.log(`deque: `, queue.deque())
+    console.log(`dequeue: `, queue.dequeue())
     
     queue.traverse((ele, index) => {
         console.log(`Traversing-Queue:${index}: ${ele}`)

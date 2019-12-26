@@ -19,7 +19,7 @@ export default class PriorityQueue extends Queue {
      * @param {*} priority 要加入队列元素的优先级
      * @memberof PriorityQueue
      */
-    enque(element, priority) {
+    enqueue(element, priority) {
         const queueElement = new QueueElement(element, priority)
 
         // 空队列的时候直接入队

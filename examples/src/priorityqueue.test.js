@@ -6,22 +6,22 @@ export default function testPriorityQueue() {
 
     var pQueue = new PriorityQueue()
     
-    pQueue.enque({
+    pQueue.enqueue({
         name: 'Apple',
         price: '8',
         toString: function(){return `{${this.name} : ${this.price}}`}
     }, 2)
-    pQueue.enque({
+    pQueue.enqueue({
         name: 'Banana',
         price: '6',
         toString: function(){return `{${this.name} : ${this.price}}`}
     }, 4)
-    pQueue.enque({
+    pQueue.enqueue({
         name: 'Strawberry',
         price: '18',
         toString: function(){return `{${this.name} : ${this.price}}`}
     }, 1)
-    pQueue.enque({
+    pQueue.enqueue({
         name: 'Pear',
         price: '5',
         toString: function(){return `{${this.name} : ${this.price}}`}
@@ -30,7 +30,7 @@ export default function testPriorityQueue() {
     console.log('isEmpty: ', pQueue.isEmpty)
     console.log('size: ', pQueue.size)
     console.log(pQueue.toString())
-    console.log(`deque: `, pQueue.deque())
+    console.log(`dequeue: `, pQueue.dequeue())
     
     pQueue.traverse((ele,index)=>{
         console.log(`Traversing-PriorityQueue:${index}: ${ele}`)
