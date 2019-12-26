@@ -1,7 +1,7 @@
 import LinkedList from './LinkedList'
 import {
     isFunction,
-    comparer
+    eqComparer
 } from '../common/toollib'
 import {
     LinkedListNode,
@@ -210,7 +210,7 @@ export default class DoublyLinkedList extends LinkedList {
     indexOf(data, customizedComparer) {
         let index = 0
         let current = this.__head
-        const comparerFunc = comparer(customizedComparer)
+        const comparerFunc = eqComparer(customizedComparer)
 
         // 根据指点数据查找节点元素
         while (current) {

@@ -4,6 +4,7 @@ import testProirityQueue from './priorityqueue.test'
 import testLinkedList from './linkedlist.test'
 import testDoublyLinkedList from './doublylinkedlist.test'
 import testHashTable from './hashtable.test'
+import testBinarySearchTree from './binarysearchtree.test'
 
 // 清空页面上的 log 信息
 btnClear.onclick = function (e) {
@@ -34,11 +35,14 @@ btnContainer.onclick = function (e) {
         case btnHashTable.id:
             targetFunc = testHashTable
             break
+        case btnBinarySearchTree.id:
+            targetFunc = testBinarySearchTree
+            break
         default:
             break;
     }
 
-    if(targetFunc){
+    if (targetFunc) {
         btnClear.click()
         targetFunc()
     }

@@ -44,7 +44,7 @@ export function isFunction(func) {
  * @param {function} customizedComparer 用户指定的比较器函数
  * @returns 比较器函数
  */
-export function comparer(customizedComparer) {
+export function eqComparer(customizedComparer) {
     /**
      *默认的比较器函数
      *
