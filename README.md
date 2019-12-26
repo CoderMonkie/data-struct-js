@@ -135,12 +135,12 @@ more examples see `data-struct-js/examples`
 + LinkedList
 + DoublyLinkedList
 + HashTalbe
++ BinarySearchTree
 
 ---
 
 coming soon..
 
-+ BinarySearchTree
 + BlackRedTree
 + Graph
 
