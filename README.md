@@ -25,6 +25,7 @@ import {
     LinkedList,
     DoublyLinkedList,
     HashTalbe,
+    BinarySearchTree,
 } from 'data-struct-js'
 
 //----------------------------
@@ -97,6 +98,31 @@ hashTable.delete('Three')   // true
 hashTable.delete('Five')    // false
 //...
 
+//----------------------------
+// BinarySearchTree
+let bst = new BinarySearchTree()
+bst.insert(8, "8: eight")
+bst.insert(6, "6: six")
+bst.insert(13, "13: thirteen")
+bst.insert(4, "4: four")
+bst.insert(7, "7: seven")
+bst.insert(11, "11: eleven")
+bst.insert(3, "3: three")
+bst.insert(10, "10: ten")
+bst.insert(5, "5: five")
+bst.insert(16, "16: sixteen")
+bst.insert(12, "12: twelve")
+bst.insert(14, "14: forteen")
+bst.insert(9, "9: nine")
+bst.insert(15, "15: fifteen")
+
+var traverseCallbackFunc = function(value) {
+    console.log(`Traversing!\r\n==>current is [${value}]`)
+}
+bst.inOrderTraverse(traverseCallbackFunc)
+
+bst.remove(11)
+//...
 ```
 
 more examples see `data-struct-js/examples`

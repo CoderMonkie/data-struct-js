@@ -1,4 +1,4 @@
-import PriorityQueue from '../../lib/PriorityQueue'
+import PriorityQueue from '../../lib/Queue/PriorityQueue'
 
 export default function testPriorityQueue() {
 

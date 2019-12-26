@@ -1,8 +1,8 @@
-import ArrayBasedStruct from "./ArrayBasedStruct"
+import ArrayBasedStruct from "../ArrayBasedStruct"
 import {
     deepCopy,
     isFunction
-} from "./common/toollib"
+} from "../common/toollib"
 
 /**
  *队列结构

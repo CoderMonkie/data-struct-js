@@ -108,11 +108,11 @@ export default class BinarySearchTree {
 
                     // minInRight的右子节点不为空时，
                     // 将minInRight.right的右子节点设为删除对象节点的右子节点
-                    if(minInRight.right){
+                    if (minInRight.right) {
                         minInRight.right.right = node.right
                     }
                     // minInRight的右子节点为空时，将其右子节点设为parentOfMinInRight
-                    else{
+                    else {
                         minInRight.right = parentOfMinInRight
                     }
 
@@ -287,8 +287,14 @@ export default class BinarySearchTree {
         }
     }
 
+    /**
+     * 删除指定节点
+     *
+     * @param {*} key key
+     * @returns {bool} 删除结果：true/false
+     * @memberof BinarySearchTree
+     */
     remove(key) {
-        debugger
         if (this.isEmpty) return false
         if (!this.has(key)) return false
 
@@ -336,12 +342,11 @@ export default class BinarySearchTree {
      * 是否有指定 key 的节点存在
      *
      * @param {*} key key
-     * @returns 是否存在：true/false
+     * @returns {bool} 是否存在：true/false
      * @memberof BinarySearchTree
      */
     has(key) {
         if (this.isEmpty) return false
-        debugger
         let node = this.__searchNode(key, this.__root)
         return !!node
     }

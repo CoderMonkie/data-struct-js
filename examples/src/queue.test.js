@@ -1,4 +1,4 @@
-import Queue from '../../lib/Queue'
+import Queue from '../../lib/Queue/Queue'
 
 export default function testQueue() {
 
