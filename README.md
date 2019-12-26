@@ -141,7 +141,7 @@ more examples see `data-struct-js/examples`
 
 coming soon..
 
-+ BlackRedTree
++ RedBlackTree
 + Graph
 
 ---
