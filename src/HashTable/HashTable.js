@@ -20,7 +20,7 @@ export default class HashTable {
             this.__storage.forEach(bucket => {
                 if (!bucket) return
                 str += bucket && bucket.map(tuple => {
-                    return `${tuple[0]}:\r\n  ${tuple[1]}}`
+                    return `${tuple[0]}:\r\n  {${tuple[1]}}`
                 })
                 str += '\r\n'
             });
