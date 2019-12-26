@@ -39,10 +39,10 @@ stack.pop() // Element1
 //----------------------------
 // Queue
 let queue = new Queue()
-queue.enque('First')
-queue.enque('Second')
-queue.deque()   // First
-queue.deque()   // Second
+queue.enqueue('First')
+queue.enqueue('Second')
+queue.dequeue()   // First
+queue.dequeue()   // Second
 
 //----------------------------
 // PriorityQueue
