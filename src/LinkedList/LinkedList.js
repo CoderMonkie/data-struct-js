@@ -169,11 +169,10 @@ export default class LinkedList {
         return this.removeAt(position)
     }
 
-
     /**
      *删除链表指定位置元素
      *
-     * @param {*} position 位置下标
+     * @param {number} position 位置下标
      * @returns 删除结果：true/false
      * @memberof LinkedList
      */
@@ -216,7 +215,7 @@ export default class LinkedList {
     /**
      *更新链表指定位置的元素
      *
-     * @param {*} position 位置下标
+     * @param {number} position 位置下标
      * @param {*} data 新数据
      * @returns 更新结果：true/false
      * @memberof LinkedList
@@ -257,7 +256,7 @@ export default class LinkedList {
      *根据指定元素数据获取在链表中的位置下标
      *
      * @param {*} data 元素数据
-     * @param {*} customizedComparer 指定的比对方法
+     * @param {function|null} customizedComparer 指定的比对方法
      * @returns 位置下标
      * @memberof LinkedList
      */
@@ -279,9 +278,15 @@ export default class LinkedList {
         return -1
     }
 
+    /**
+     * 遍历链表
+     *
+     * @param {function} callback
+     * @memberof LinkedList
+     */
     traverse(callback) {
         // 参数检查（回调函数）
-        if(!callback || !isFunction(callback)) return
+        if (!callback || !isFunction(callback)) return
 
         // 起始元素设为 head
         let current = this.__head
@@ -314,8 +319,8 @@ export default class LinkedList {
      * @memberof LinkedList
      */
     toString() {
-        var str = '[HEAD] -> '
-        var current = this.__head
+        let str = '[HEAD] -> '
+        let current = this.__head
         while (current) {
             str += current + ' -> '
             current = current.next

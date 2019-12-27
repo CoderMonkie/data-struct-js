@@ -5,6 +5,12 @@
 Implement of common data structures using javascript.
 besides supplied by JS, such as Array/Set(WeakSet)/Map(WeakMap)
 
+### source code
+
+Write in ES6, using babel to convert to ES5.
+
+You can download and run `npm run compile` with customized babel setting to meet your needs.
+
 ## How to use
 
 install the package
@@ -127,21 +133,28 @@ bst.remove(11)
 
 more examples see `data-struct-js/examples`
 
-## Available data structures
+## Data structures
 
-+ Stack
-+ Queue
-+ PriorityQueue
-+ LinkedList
-+ DoublyLinkedList
-+ HashTalbe
-+ BinarySearchTree
+### Implement data structures:
 
----
++ [Stack](src/Stack.js)
++ [Queue](src/Queue/Queue.js)
++ [PriorityQueue](src/Queue/Queue.js)
++ [LinkedList](src/LinkedList/LinkedList.js)
++ [DoublyLinkedList](src/LinkedList/DoublyLinkedList.js)
++ [CircleLinkedList](src/LinkedList/CircleLinkedList.js)
++ [CircleDoublyLinkedList](src/LinkedList/CircleDoublyLinkedList.js)
++ [HashTalbe](src/HashTable/HashTable.js)
++ [BinarySearchTree](src/Tree/BinarySearchTree.js)
 
-coming soon..
-
+coming soon:
 + RedBlackTree
 + Graph
+
+### Original data structures in JavaScript:
+
++ Array
++ Set/WeakSet
++ Map/WeakMap
 
 ---

@@ -75,11 +75,11 @@ export default function testLinkedList() {
     
     console.log(`6. Get index of No.4 element \r\n ${index}`)
 
-    let firstActivity = lst.firstNode
+    let firstActivity = lst.head
     
     console.log(`7. Get first element \r\n ${firstActivity}`)
 
-    let lastActivity = lst.lastNode
+    let lastActivity = lst.tail
     
     console.log(`8. Get last element \r\n ${lastActivity}`)
 }

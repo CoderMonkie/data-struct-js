@@ -3,6 +3,7 @@ import testQueue from './queue.test'
 import testProirityQueue from './priorityqueue.test'
 import testLinkedList from './linkedlist.test'
 import testDoublyLinkedList from './doublylinkedlist.test'
+import testCircleLinkedList from './circlelinkedlist.test'
 import testHashTable from './hashtable.test'
 import testBinarySearchTree from './binarysearchtree.test'
 
@@ -31,6 +32,9 @@ btnContainer.onclick = function (e) {
             break
         case btnDoublyLinkedList.id:
             targetFunc = testDoublyLinkedList
+            break
+        case btnCircleLinkedList.id:
+            targetFunc = testCircleLinkedList
             break
         case btnHashTable.id:
             targetFunc = testHashTable
