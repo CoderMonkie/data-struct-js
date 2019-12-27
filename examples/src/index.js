@@ -11,6 +11,7 @@ import testBinarySearchTree from './binarysearchtree.test'
 btnClear.onclick = function (e) {
     document.querySelectorAll('.log-info').forEach(ele => {
         document.body.removeChild(ele)
+        console.clear()
     })
 }
 
