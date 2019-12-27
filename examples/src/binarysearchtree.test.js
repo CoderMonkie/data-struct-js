@@ -13,13 +13,15 @@ export default function testBinarySearchTree() {
     bst.insert(7, "7: seven")
     bst.insert(11, "11: eleven")
     bst.insert(3, "3: three")
-    bst.insert(10, "10: ten")
     bst.insert(5, "5: five")
-    bst.insert(16, "16: sixteen")
+    bst.insert(10, "10: ten")
+    bst.insert(20, "20: twenty")
     bst.insert(12, "12: twelve")
-    bst.insert(14, "14: forteen")
+    bst.insert(16, "16: sixteen")
+    bst.insert(35, "35: thirty-five")
     bst.insert(9, "9: nine")
-    bst.insert(15, "15: fifteen")
+    bst.insert(18, "18: eighteen")
+    bst.insert(19, "19: nineteen")
 
     // 创建二叉搜索树
     console.log(`1. Insert Nodes to make a BinarySearchTree`)
@@ -34,13 +36,16 @@ export default function testBinarySearchTree() {
      *     6                13
      * ---------     ---------------
      *   |    |       |           |  
-     *   4    7       11          16
+     *   4    7       11          20
      * -----       -------    ----------
-     * |   |       |     |     |
-     * 3   5       10    12    14
-     *           -----        ------ 
-     *           |                 |
-     *           9                 15
+     * |   |       |     |    |       |
+     * 3   5       10    12   16      35
+     *           -----      ------ 
+     *           |               |
+     *           9               18
+     *                          -----
+     *                              |
+     *                              19
      * 
      */
     `)

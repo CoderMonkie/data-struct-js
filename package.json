@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "compile": "npx babel src/ --out-dir lib",
-    "dopublish": "rmdir /s /q lib && npm run compile && npm publish"
+    "winpublish": "rmdir /s /q lib && npm run compile && npm publish",
+    "macpublish": "rm -rf lib && npm run compile && npm publish"
   },
   "repository": {
     "type": "git",

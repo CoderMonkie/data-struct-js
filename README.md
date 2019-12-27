@@ -13,7 +13,10 @@ You can download and run `npm run compile` with customized babel setting to meet
 
 ## How to use
 
-install the package
+> more examples see [`data-struct-js/examples`](./examples)
+
+### install the package
+
 ```bash
 npm install --save-dev data-struct-js
 ```
@@ -22,7 +25,8 @@ or
 npm i -D data-struct-js
 ```
 
-then use the data-structures supplied simply as below
+### then use the data-structures supplied simply as below
+
 ```js
 import {
     Stack,
@@ -30,6 +34,7 @@ import {
     PriorityQueue,
     LinkedList,
     DoublyLinkedList,
+    CircleLinkedList,
     HashTalbe,
     BinarySearchTree,
 } from 'data-struct-js'
@@ -90,6 +95,18 @@ doublyLinkedList.traverse(traverseFunc, true)
 //...
 
 //----------------------------
+// CircleLinkedList
+let circle = new CircleLinkedList()
+circle.append("1.Plan")
+circle.append("2.Do")
+circle.append("3.Check")
+circle.append("4.Action")
+for (let j = 0; j < 9; j++) {
+    const item = circle.getNext()
+    console.log(`${j} : ${item}`)
+}
+
+//----------------------------
 // HashTable
 let hashTable = new HashTable()
 // Add
@@ -114,24 +131,65 @@ bst.insert(4, "4: four")
 bst.insert(7, "7: seven")
 bst.insert(11, "11: eleven")
 bst.insert(3, "3: three")
-bst.insert(10, "10: ten")
 bst.insert(5, "5: five")
-bst.insert(16, "16: sixteen")
+bst.insert(10, "10: ten")
+bst.insert(20, "20: twenty")
 bst.insert(12, "12: twelve")
-bst.insert(14, "14: forteen")
+bst.insert(16, "16: sixteen")
+bst.insert(35, "35: thirty-five")
 bst.insert(9, "9: nine")
-bst.insert(15, "15: fifteen")
+bst.insert(18, "18: eighteen")
+bst.insert(19, "19: nineteen")
+/**
+ * 
+ *              8
+ *     ------------------
+ *     |                |
+ *     6                13
+ * ---------     ---------------
+ *   |    |       |           |  
+ *   4    7       11          20
+ * -----       -------    ----------
+ * |   |       |     |    |       |
+ * 3   5       10    12   16      35
+ *           -----      ------ 
+ *           |               |
+ *           9               18
+ *                          -----
+ *                              |
+ *                              19
+ * 
+ */
 
 var traverseCallbackFunc = function(value) {
     console.log(`Traversing!\r\n==>current is [${value}]`)
 }
 bst.inOrderTraverse(traverseCallbackFunc)
 
-bst.remove(11)
+bst.remove(13)
+// ⬇️
+/**
+ * 
+ *              8
+ *     ------------------
+ *     |                |
+ *     6                16
+ * ---------     ---------------
+ *   |    |       |           |  
+ *   4    7       11          18
+ * -----       -------    ----------
+ * |   |       |     |            |
+ * 3   5       10    12           19
+ *           -----              ------ 
+ *           |                       |
+ *           9                       20
+*                                  -----
+ *                                     |
+ *                                     35
+ * 
+ */
 //...
 ```
-
-more examples see `data-struct-js/examples`
 
 ## Data structures
 
@@ -157,4 +215,12 @@ coming soon:
 + Set/WeakSet
 + Map/WeakMap
 
+> ⬆️ not in this library since you could use them directly.
+
 ---
+
+## License
+
+### MIT
+
+Feel free to use it.

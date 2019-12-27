@@ -106,19 +106,25 @@ export default class BinarySearchTree {
                     // minInRight的左子节点设为删除对象节点target的left
                     minInRight.left = node.left
 
-                    // minInRight的右子节点不为空时，
-                    // 将minInRight.right的右子节点设为删除对象节点的右子节点
-                    if (minInRight.right) {
-                        minInRight.right.right = node.right
-                    }
-                    // minInRight的右子节点为空时，将其右子节点设为parentOfMinInRight
-                    else {
-                        minInRight.right = parentOfMinInRight
-                    }
-
-                    // parentOfMinInRight的左子节点(原minInRight)置为空
+                    // 当删除对象节点的右子树有左子树的时候
                     if (parentOfMinInRight) {
+                        // parentOfMinInRight的左子节点(原minInRight)置为空
                         parentOfMinInRight.left = null
+                        
+                        // minInRight的右子节点为空时，将其右子节点设为删除对象节点target的right
+                        if (minInRight.right === null) {
+                            minInRight.right = node.right
+                        }
+                        // minInRight的右子节点不为空时
+                        else {
+                            // 找到其右子树中的最大节点
+                            let mininRightSubMax = minInRight.right
+                            while (mininRightSubMax.right) {
+                                mininRightSubMax = mininRightSubMax.right
+                            }
+                            // 将minInRight的右子树中的最大节点的right设为删除对象节点target的right
+                            mininRightSubMax.right = node.right
+                        }
                     }
 
                     // minInRight的父节点设为删除对象节点的父节点（在递归中返回 minInRight 即可）
