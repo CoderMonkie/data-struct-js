@@ -41,7 +41,7 @@ export default class CircleLinkedList extends LinkedList {
 
         return true
     }
-    
+
     /**
      * 向循环链表指定位置插入元素
      *
@@ -52,16 +52,13 @@ export default class CircleLinkedList extends LinkedList {
      */
     insert(position, data) {
         // 1. 边界检查（插入位置）
-        if (position < 0) throw new Error('position cannot be set to minus value.')
+        if (position < 0 || position > this.__count) throw new Error('position out of range.')
 
-        // 2. 指定位置可大于节点个数，因此下标位置应取模
-        const insertAt = position % this.size
-
-        // 3. 创建新元素
+        // 2. 创建新元素
         var newNode = new LinkedListNode(data)
 
-        // 4.1插入到链表头部
-        if (insertAt === 0) {
+        // 3.1插入到链表头部
+        if (position === 0) {
             newNode.next = this.__head
             this.__head = newNode
             this.__tail.next = this.__head
@@ -69,16 +66,16 @@ export default class CircleLinkedList extends LinkedList {
             // 内部计数加1
             this.__count += 1
         }
-        // 4.2插入到链表尾部
-        else if (insertAt === this.size) {
+        // 3.2插入到链表尾部
+        else if (position === this.size) {
             this.append(data)
         }
-        // 4.3以外
+        // 3.3以外
         else {
             let previous = null
             let current = this.__head
             let index = 0
-            while (index < insertAt) {
+            while (index < position) {
                 previous = current
                 current = current.next
                 index++
@@ -141,14 +138,14 @@ export default class CircleLinkedList extends LinkedList {
             previous && (previous.next = current.next)
 
             // A. 如果删除的是头节点
-            if(position === 0) {
+            if (position === 0) {
                 // 更新 head 的指针
                 this.__head = current.next
                 // 重新连接首尾
                 this.__tail.next = this.__head
             }
             // B. 如果删除的是尾节点
-            else if(position === this.size - 1) {
+            else if (position === this.size - 1) {
                 // 更新 tail 的指针
                 this.__tail = previous
             }
@@ -194,7 +191,7 @@ export default class CircleLinkedList extends LinkedList {
      */
     traverse(callback) {
         // 参数检查（回调函数）
-        if(!callback || !isFunction(callback)) return
+        if (!callback || !isFunction(callback)) return
 
         // 计数
         let index = 0
@@ -213,13 +210,16 @@ export default class CircleLinkedList extends LinkedList {
      * 迭代下一个节点
      * 即链表头节点指针后移
      *
-     * @returns 指针节点数据
+     * @returns 所在节点数据
      * @memberof CircleLinkedList
      */
     getNext() {
+        if (this.isEmpty) return undefined
         let current = this.__head
-        this.__head = current.next
-        this.__tail = current
+        if (this.size > 1) {
+            this.__head = current.next
+            this.__tail = current
+        }
         return current.data
     }
 

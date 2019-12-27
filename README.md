@@ -143,7 +143,7 @@ more examples see `data-struct-js/examples`
 + [LinkedList](src/LinkedList/LinkedList.js)
 + [DoublyLinkedList](src/LinkedList/DoublyLinkedList.js)
 + [CircleLinkedList](src/LinkedList/CircleLinkedList.js)
-+ [CircleDoublyLinkedList](src/LinkedList/CircleDoublyLinkedList.js)
++ CircleDoublyLinkedList
 + [HashTalbe](src/HashTable/HashTable.js)
 + [BinarySearchTree](src/Tree/BinarySearchTree.js)
 

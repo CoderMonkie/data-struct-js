@@ -9,7 +9,6 @@ export default function testCircleLinkedList() {
     console.log(`0. Head of empty list:\r\n  ${lst.head}`)
 
     // 添加元素
-    debugger
     lst.append(1)
     lst.append(2)
     lst.append(3)
@@ -18,7 +17,6 @@ export default function testCircleLinkedList() {
     console.log(`1. Append \r\n ${lst.toString()}`)
 
     // 插入元素
-    debugger
     lst.insert(0, 0)
     lst.insert(4, 4)
     lst.insert(6, 6)
@@ -26,7 +24,6 @@ export default function testCircleLinkedList() {
     console.log(`2. Insert \r\n ${lst.toString()}`)
 
     // 移除元素
-    debugger
     lst.remove(6)
 
     console.log(`3. Remove No.6 element \r\n ${lst.toString()}`)

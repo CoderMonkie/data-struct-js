@@ -237,7 +237,7 @@ export default class LinkedList {
     /**
      *查看指定位置元素的数据
      *
-     * @param {*} position 位置下标
+     * @param {number} position 位置下标
      * @returns 元素数据
      * @memberof LinkedList
      */
