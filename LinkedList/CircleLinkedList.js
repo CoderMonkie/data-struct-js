@@ -60,7 +60,7 @@ function CircleLinkedList() {
             this.__count += 1
         }
         // 3.2插入到链表尾部
-        else if (position === this.size) {
+        else if (position === this.__count) {
             this.append(data)
         }
         // 3.3以外
@@ -125,7 +125,7 @@ function CircleLinkedList() {
                 this.__tail.next = this.__head
             }
             // B. 如果删除的是尾节点
-            else if (position === this.size() - 1) {
+            else if (position === this.__count - 1) {
                 // 更新 tail 的指针
                 this.__tail = previous
             }
@@ -179,7 +179,7 @@ function CircleLinkedList() {
         var index = 0
 
         // 根据指点数据查找节点元素，探查到尾节点后需停止
-        while (index < this.size) {
+        while (index < this.size()) {
             if (current.data == data) {
                 return index
             }
@@ -246,12 +246,12 @@ function CircleLinkedList() {
         let str = '[ '
         let index = 0
         let current = this.__head
-        while (index < this.size) {
+        while (index < this.size()) {
             str += current + ' -> '
             current = current.next
             index += 1
         }
-        str += ` | Count: ${this.size} ]`
+        str += ` | Count: ${this.size()} ]`
         return str
     }
 }
@@ -266,11 +266,19 @@ var circle = new CircleLinkedList()
 circle.append("1.Plan")
 circle.append("2.Do")
 circle.append("3.Check")
-circle.append("4.Action")
-for (let j = 0; j < 6; j++) {
+circle.append("4.Act")
+for (let j = 0; j < 4; j++) {
     const item = circle.getNext()
     console.log(`${j} : ${item}`)
 }
 circle.traverse(item=>{
     console.log(`Traversing : ${item}`)
 })
+
+console.log('---------------------')
+
+circle.remove('2.Do')
+console.log(`After remove element 2 : ${circle}`, )
+
+circle.removeAt(2)
+console.log(`After removeAt(2): ${circle}`)
