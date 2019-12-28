@@ -1,11 +1,11 @@
-import testStack from './stack.test'
-import testQueue from './queue.test'
-import testProirityQueue from './priorityqueue.test'
-import testLinkedList from './linkedlist.test'
-import testDoublyLinkedList from './doublylinkedlist.test'
-import testCircleLinkedList from './circlelinkedlist.test'
-import testHashTable from './hashtable.test'
-import testBinarySearchTree from './binarysearchtree.test'
+const testStack = require('./stack.test')
+const testQueue = require('./queue.test')
+const testProirityQueue = require('./priorityqueue.test')
+const testLinkedList = require('./linkedlist.test')
+const testDoublyLinkedList = require('./doublylinkedlist.test')
+const testCircleLinkedList = require('./circlelinkedlist.test')
+const testHashTable = require('./hashtable.test')
+const testBinarySearchTree = require('./binarysearchtree.test')
 
 // 清空页面上的 log 信息
 btnClear.onclick = function (e) {

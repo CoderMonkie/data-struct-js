@@ -3,14 +3,14 @@
  * @author 码路工人 CoderMonkey
  * @date 2019/12
  */
-import { Stack } from './lib/Stack'
-import { Queue } from './lib/Queue/Queue'
-import { PriorityQueue } from './lib/Queue/PriorityQueue'
-import { LinkedList } from './lib/LinkedList/LinkedList'
-import { DoublyLinkedList } from './lib/LinkedList/DoublyLinkedList'
-import { CircleinkedList } from './lib/LinkedList/CircleLinkedList'
-import { HashTable } from './lib/HashTable/HashTable'
-import { BinarySearchTree } from './lib/Tree/BinarySearchTree'
+const { Stack } = require('./lib/Stack')
+const { Queue } = require('./lib/Queue/Queue')
+const { PriorityQueue } = require('./lib/Queue/PriorityQueue')
+const { LinkedList } = require('./lib/LinkedList/LinkedList')
+const { DoublyLinkedList } = require('./lib/LinkedList/DoublyLinkedList')
+const { CircleLinkedList } = require('./lib/LinkedList/CircleLinkedList')
+const { HashTable } = require('./lib/HashTable/HashTable')
+const { BinarySearchTree } = require('./lib/Tree/BinarySearchTree')
 
 export { 
     Stack,
@@ -18,7 +18,7 @@ export {
     PriorityQueue,
     LinkedList,
     DoublyLinkedList,
-    CircleinkedList,
+    CircleLinkedList,
     HashTable,
     BinarySearchTree,
  }

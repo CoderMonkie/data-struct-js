@@ -1,6 +1,6 @@
-import Queue from '../../lib/Queue/Queue'
+const { Queue } = require('data-struct-js')
 
-export default function testQueue() {
+function testQueue() {
 
     console.log('----------Test: Queue----------')
 
@@ -11,7 +11,7 @@ export default function testQueue() {
     console.log('isEmpty: ', queue.isEmpty)
     console.log('size: ', queue.size)
     console.log(`dequeue: `, queue.dequeue())
-    
+
     queue.traverse((ele, index) => {
         console.log(`Traversing-Queue:${index}: ${ele}`)
     })
@@ -20,3 +20,4 @@ export default function testQueue() {
     console.log('isEmpty: ', queue.isEmpty)
     console.log('size: ', queue.size)
 }
+module.exports = testQueue

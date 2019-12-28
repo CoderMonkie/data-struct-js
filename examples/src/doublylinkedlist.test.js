@@ -1,6 +1,6 @@
-import DoublyLinkedList from '../../lib/LinkedList/DoublyLinkedList'
+const { DoublyLinkedList } = require('data-struct-js')
 
-export default function testDoublyLinkedList() {
+function testDoublyLinkedList() {
 
     console.log('----------Test: DoublyLinkedList----------')
 
@@ -93,3 +93,5 @@ export default function testDoublyLinkedList() {
     lst.traverse(traverseCb)
     lst.traverse(traverseCb, true)
 }
+
+module.exports = testDoublyLinkedList

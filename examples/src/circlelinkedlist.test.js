@@ -1,6 +1,6 @@
-import CircleLinkedList from '../../lib/LinkedList/CircleLinkedList'
+const { CircleLinkedList } = require('data-struct-js')
 
-export default function testCircleLinkedList() {
+function testCircleLinkedList() {
 
     console.log('----------Test: CircleLinkedList----------')
 
@@ -13,7 +13,7 @@ export default function testCircleLinkedList() {
     lst.append(2)
     lst.append(3)
     lst.append(5)
-    
+
     console.log(`1. Append \r\n ${lst.toString()}`)
 
     // 插入元素
@@ -30,7 +30,7 @@ export default function testCircleLinkedList() {
 
     // 获取元素数据
     let data4 = lst.findAt(4)
-    
+
     console.log(`4. Get No.4 element \r\n ${data4}`)
 
     // 更新元素数据
@@ -40,15 +40,15 @@ export default function testCircleLinkedList() {
 
     // 获取下标
     let index = lst.indexOf(44)
-    
+
     console.log(`6. Get index of No.4 element \r\n ${index}`)
 
     let firstActivity = lst.head
-    
+
     console.log(`7. Get first element \r\n ${firstActivity}`)
 
     let lastActivity = lst.tail
-    
+
     console.log(`8. Get last element \r\n ${lastActivity}`)
 
     // loop~
@@ -66,3 +66,5 @@ export default function testCircleLinkedList() {
         console.log(`${j} : ${item}`)
     }
 }
+
+module.exports = testCircleLinkedList

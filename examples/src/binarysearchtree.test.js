@@ -1,6 +1,6 @@
-import BinarySearchTree from '../../lib/Tree/BinarySearchTree'
+const { BinarySearchTree } = require('data-struct-js')
 
-export default function testBinarySearchTree() {
+function testBinarySearchTree() {
 
     console.log('----------Test: BinarySearchTree----------')
 
@@ -53,8 +53,8 @@ export default function testBinarySearchTree() {
 
     // 遍历二叉搜索树
     console.log(`2. Traverse a BST`)
-    
-    const traverseCallbackFunc = function(value) {
+
+    const traverseCallbackFunc = function (value) {
         console.log(`Traversing!\r\n==>current is [${value}]`)
     }
 
@@ -67,12 +67,12 @@ export default function testBinarySearchTree() {
     // 前序遍历
     console.log(`2.2 preOrderTraverse: ROOT->left->right`)
     bst.preOrderTraverse(traverseCallbackFunc)
-    
+
     // 后序遍历
     console.log(`2.3 postOrderTraverse:left->right->ROOT`)
     bst.postOrderTraverse(traverseCallbackFunc)
 
-    
+
     // 删除二叉搜索树的节点
     console.log(`3. Remove nodes of a  BST`)
     console.log('remove 13', bst.remove(13))
@@ -82,3 +82,4 @@ export default function testBinarySearchTree() {
     console.log('remove 4', bst.remove(4))  // false
     console.log(bst)
 }
+module.exports = testBinarySearchTree

@@ -1,6 +1,6 @@
-import HashTable from '../../lib/HashTable/HashTable'
+const { HashTable } = require('data-struct-js')
 
-export default function testHashTable() {
+function testHashTable() {
 
     console.log('----------Test: HashTable----------')
 
@@ -71,9 +71,9 @@ export default function testHashTable() {
 
     // 4.扩容测试
     console.log(`4. Expand capacity of HashTable (Temporarily change MIN_LIMIT to 3)`)
-    const AvrilLavign = new Singer('Avril', 'Lavign','female')
-    const TalyorSwift = new Singer('Talyor', 'Swift','female')
-    const JohnLennon = new Singer('John', 'Lennon','male')
+    const AvrilLavign = new Singer('Avril', 'Lavign', 'female')
+    const TalyorSwift = new Singer('Talyor', 'Swift', 'female')
+    const JohnLennon = new Singer('John', 'Lennon', 'male')
 
     hashTable.put('AvrilLavign', AvrilLavign)
     hashTable.put('TalyorSwift', TalyorSwift)
@@ -89,3 +89,5 @@ export default function testHashTable() {
 
     console.log(hashTable)
 }
+
+module.exports = testHashTable

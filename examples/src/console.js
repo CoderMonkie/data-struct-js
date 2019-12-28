@@ -25,7 +25,7 @@ class Console {
      * @memberof Console
      */
     log(...message) {
-        if(!message) return
+        if (!message) return
 
         let str = ''
         let logDiv = document.createElement('div')
@@ -53,4 +53,3 @@ const console = (process.env.NODE_ENV === 'production'
     : new Console())
 
 module.exports = console
-module.exports.default = console
