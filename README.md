@@ -28,7 +28,7 @@ npm i -D data-struct-js
 ### then use the data-structures supplied simply as below
 
 ```js
-import {
+const {
     Stack,
     Queue,
     PriorityQueue,
@@ -37,7 +37,7 @@ import {
     CircleLinkedList,
     HashTalbe,
     BinarySearchTree,
-} from 'data-struct-js'
+} = require('data-struct-js')
 
 //----------------------------
 // Stack
