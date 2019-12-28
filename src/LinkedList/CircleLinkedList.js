@@ -1,12 +1,18 @@
 import {
-    eqComparer
+    eqComparer,
+    isFunction
 } from '../common/toollib'
 import {
     LinkedListNode,
-    loopToFind,
 } from './LinkedListNode'
 import LinkedList from './LinkedList'
 
+/**
+ * @description 单向循环链表
+ * @export CircleLinkedList
+ * @class CircleLinkedList
+ * @extends {LinkedList}
+ */
 export default class CircleLinkedList extends LinkedList {
     constructor() {
         super()
@@ -224,7 +230,7 @@ export default class CircleLinkedList extends LinkedList {
     }
 
     /**
-     *获取字符串
+     * 获取字符串
      *
      * @returns 循环链表的字符串
      * @memberof LinkedList

@@ -339,7 +339,7 @@ export default class BinarySearchTree {
      * @param {function} callback 回调函数
      * @memberof BinarySearchTree
      */
-    backOrderTraverse(callback) {
+    postOrderTraverse(callback) {
         this.__checkBeforeTraverse(callback)
         this.__backOrderTraverse(this.__root, callback)
     }

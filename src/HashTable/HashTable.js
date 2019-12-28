@@ -5,7 +5,7 @@ import {
 const MIN_LIMIT = 11
 
 /**
- *哈希表
+ * 哈希表
  *
  * @export
  * @class HashTable
@@ -29,7 +29,7 @@ export default class HashTable {
     }
 
     /**
-     *哈希表中元素的个数
+     * 哈希表中元素的个数
      *
      * @readonly
      * @memberof HashTable
@@ -39,7 +39,7 @@ export default class HashTable {
     }
 
     /**
-     *是否为空哈希表
+     * 是否为空哈希表
      *
      * @readonly
      * @memberof HashTable
@@ -49,7 +49,7 @@ export default class HashTable {
     }
 
     /**
-     *清空哈希表
+     * 清空哈希表
      *
      * @memberof HashTable
      */
@@ -60,8 +60,8 @@ export default class HashTable {
     }
 
     /**
-     *向哈希表中填入输入（新增或修改）
-     *当新增时自动按需扩容
+     * 向哈希表中填入输入（新增或修改）
+     * 当新增时自动按需扩容
      * @param {*} key 键值
      * @param {*} value 数据值
      * @returns 当前元素个数
@@ -116,7 +116,7 @@ export default class HashTable {
     }
 
     /**
-     *删除哈希表元素
+     * 删除哈希表元素
      *
      * @param {*} key 键值
      * @returns 删除结果：true/false
@@ -172,7 +172,7 @@ export default class HashTable {
     }
 
     /**
-     *根据指定键值获取哈希表中对应元素的数据
+     * 根据指定键值获取哈希表中对应元素的数据
      *
      * @param {*} key 键值
      * @returns Value
@@ -200,7 +200,7 @@ export default class HashTable {
     }
 
     /**
-     *变更容量（扩容或缩容）
+     * 变更容量（扩容或缩容）
      *
      * @param {number} newLimit 容量
      * @memberof HashTable
@@ -229,8 +229,8 @@ export default class HashTable {
     }
 
     /**
-     *哈希函数：
-     *  根据多项式求值的霍纳法则计算下标值
+     * 哈希函数：
+     *   根据多项式求值的霍纳法则计算下标值
      *
      * @static
      * @param {*} str 键值的字符串

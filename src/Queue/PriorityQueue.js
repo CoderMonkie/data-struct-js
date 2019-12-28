@@ -1,9 +1,9 @@
 import Queue from './Queue'
 
 /**
- *优先级队列数据结构
+ * 优先级队列数据结构
  *
- * @export
+ * @export PriorityQueue
  * @class PriorityQueue
  * @extends {Queue}
  */
@@ -13,7 +13,7 @@ export default class PriorityQueue extends Queue {
     }
 
     /**
-     *加入队列
+     * 加入队列
      *
      * @param {*} element 要加入队列的元素
      * @param {*} priority 要加入队列元素的优先级

@@ -7,8 +7,8 @@ import {
 } from './LinkedListNode'
 
 /**
- *链表数据结构
- *
+ * @description 链表
+ * @author 码路工人 CoderMonkey
  * @export
  * @class LinkedList
  */
@@ -18,7 +18,7 @@ export default class LinkedList {
     }
 
     /**
-     *链表元素个数
+     * 链表元素个数
      *
      * @readonly
      * @memberof LinkedList
@@ -28,7 +28,7 @@ export default class LinkedList {
     }
 
     /**
-     *是否为空链表
+     * 是否为空链表
      *
      * @readonly
      * @memberof LinkedList
@@ -38,7 +38,7 @@ export default class LinkedList {
     }
 
     /**
-     *获取链表的首元素数据
+     * 获取链表的首元素数据
      * @deprecated since v0.05 change to use [head] instead
      * @readonly
      * @memberof LinkedList
@@ -48,7 +48,7 @@ export default class LinkedList {
     }
 
     /**
-     *获取链表的首元素数据
+     * 获取链表的首元素数据
      *
      * @readonly
      * @memberof LinkedList
@@ -58,7 +58,7 @@ export default class LinkedList {
     }
 
     /**
-     *获取链表的尾元素数据
+     * 获取链表的尾元素数据
      * @deprecated since v0.05 change to use [tail] instead
      * @readonly
      * @memberof LinkedList
@@ -68,7 +68,7 @@ export default class LinkedList {
     }
 
     /**
-     *获取链表的尾元素数据
+     * 获取链表的尾元素数据
      *
      * @readonly
      * @memberof LinkedList
@@ -78,7 +78,7 @@ export default class LinkedList {
     }
 
     /**
-     *向链表末尾添加数据
+     * 向链表末尾添加数据
      *
      * @param {*} data 链表元素的数据
      * @returns true
@@ -106,7 +106,7 @@ export default class LinkedList {
     }
 
     /**
-     *向链表指定位置插入元素
+     * 向链表指定位置插入元素
      *
      * @param {number} position 插入位置
      * @param {*} data
@@ -153,7 +153,7 @@ export default class LinkedList {
     }
 
     /**
-     *删除链表中某个元素
+     * 删除链表中某个元素
      *
      * @param {*} data 元素数据
      * @param {function} [customizedComparer=null] 可选参数，指定比对方法
@@ -170,7 +170,7 @@ export default class LinkedList {
     }
 
     /**
-     *删除链表指定位置元素
+     * 删除链表指定位置元素
      *
      * @param {number} position 位置下标
      * @returns 删除结果：true/false
@@ -213,7 +213,7 @@ export default class LinkedList {
     }
 
     /**
-     *更新链表指定位置的元素
+     * 更新链表指定位置的元素
      *
      * @param {number} position 位置下标
      * @param {*} data 新数据
@@ -235,7 +235,7 @@ export default class LinkedList {
     }
 
     /**
-     *查看指定位置元素的数据
+     * 查看指定位置元素的数据
      *
      * @param {number} position 位置下标
      * @returns 元素数据
@@ -253,7 +253,7 @@ export default class LinkedList {
     }
 
     /**
-     *根据指定元素数据获取在链表中的位置下标
+     * 根据指定元素数据获取在链表中的位置下标
      *
      * @param {*} data 元素数据
      * @param {function|null} customizedComparer 指定的比对方法
@@ -299,7 +299,7 @@ export default class LinkedList {
     }
 
     /**
-     *清空链表
+     * 清空链表
      *
      * @memberof LinkedList
      */
@@ -313,7 +313,7 @@ export default class LinkedList {
     }
 
     /**
-     *获取字符串
+     * 获取字符串
      *
      * @returns 链表的字符串
      * @memberof LinkedList

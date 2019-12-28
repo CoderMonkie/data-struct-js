@@ -10,13 +10,20 @@ import {
     doublyFindAt,
 } from './LinkedListNode'
 
+/**
+ * 双向链表
+ *
+ * @export DoublyLinkedList
+ * @class DoublyLinkedList
+ * @extends {LinkedList}
+ */
 export default class DoublyLinkedList extends LinkedList {
     constructor() {
         super()
     }
 
     /**
-     *向链表末尾添加数据
+     * 向链表末尾添加数据
      *
      * @param {*} data 链表元素的数据
      * @returns true
@@ -45,7 +52,7 @@ export default class DoublyLinkedList extends LinkedList {
     }
 
     /**
-     *向链表指定位置插入元素
+     * 向链表指定位置插入元素
      *
      * @param {number} position 插入位置
      * @param {*} data
@@ -94,7 +101,7 @@ export default class DoublyLinkedList extends LinkedList {
     }
 
     /**
-     *删除链表指定位置元素
+     * 删除链表指定位置元素
      *
      * @param {number} position 位置下标
      * @returns 删除结果：true/false
@@ -136,7 +143,7 @@ export default class DoublyLinkedList extends LinkedList {
     }
 
     /**
-     *删除指定数据的元素
+     * 删除指定数据的元素
      *
      * @param {*} data 元素数据
      * @param {*} customizedComparer 自定义比对方法
@@ -155,7 +162,7 @@ export default class DoublyLinkedList extends LinkedList {
     }
 
     /**
-     *更新指定位置元素
+     * 更新指定位置元素
      *
      * @param {number} position 位置下标
      * @param {*} data 更新的数据
@@ -176,7 +183,7 @@ export default class DoublyLinkedList extends LinkedList {
     }
 
     /**
-     *获取指定位置元素的数据
+     * 获取指定位置元素的数据
      *
      * @param {number} position 位置下标
      * @returns 元素的数据
@@ -201,7 +208,7 @@ export default class DoublyLinkedList extends LinkedList {
     }
 
     /**
-     *根据指定元素数据获取在链表中的位置下标
+     * 根据指定元素数据获取在链表中的位置下标
      *
      * @param {*} data
      * @returns 位置下标
@@ -226,7 +233,7 @@ export default class DoublyLinkedList extends LinkedList {
     }
 
     /**
-     *从尾元素开始遍历
+     * 从尾元素开始遍历
      *
      * @param {function} callback
      * @memberof DoublyLinkedList
@@ -246,7 +253,7 @@ export default class DoublyLinkedList extends LinkedList {
     }
 
     /**
-     *从首元素开始遍历
+     * 从首元素开始遍历
      *
      * @param {function} callback
      * @memberof DoublyLinkedList
@@ -266,7 +273,7 @@ export default class DoublyLinkedList extends LinkedList {
     }
 
     /**
-     *根据指定顺序，遍历双向链表
+     * 根据指定顺序，遍历双向链表
      *默认为 forwardTravase
      * @param {function} callback
      * @param {boolean} [reversal=false]

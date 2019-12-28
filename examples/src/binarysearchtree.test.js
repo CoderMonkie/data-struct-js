@@ -69,8 +69,8 @@ export default function testBinarySearchTree() {
     bst.preOrderTraverse(traverseCallbackFunc)
     
     // 后序遍历
-    console.log(`2.3 backOrderTraverse:left->right->ROOT`)
-    bst.backOrderTraverse(traverseCallbackFunc)
+    console.log(`2.3 postOrderTraverse:left->right->ROOT`)
+    bst.postOrderTraverse(traverseCallbackFunc)
 
     
     // 删除二叉搜索树的节点

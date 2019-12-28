@@ -1,5 +1,5 @@
 /**
- *深拷贝
+ * 深拷贝
  *
  * @export
  * @param {*} source 要拷贝的对象
@@ -26,10 +26,10 @@ export function deepCopy(source) {
 }
 
 /**
- *判断传入参数是否为函数
+ * 判断传入参数是否为函数
  *
  * @export
- * @param {*} func 参数（函数）
+ * @param {function|null} func 参数（函数）
  * @returns true：是函数 false：不是函数
  */
 export function isFunction(func) {
@@ -38,7 +38,7 @@ export function isFunction(func) {
 }
 
 /**
- *如果用户未指定则提供默认的比较器函数
+ * 如果用户未指定则提供默认的比较器函数
  *
  * @export
  * @param {function} customizedComparer 用户指定的比较器函数
@@ -63,9 +63,9 @@ export function eqComparer(customizedComparer) {
 }
 
 /**
- *是否为质数(素数)
- *  质数：
- *  只能被1和自己本身整除
+ * 是否为质数(素数)
+ *   质数：
+ *   只能被1和自己本身整除
  * @export
  * @param {number} num 要判断的数字
  * @returns 判断结果：true/false
@@ -96,7 +96,7 @@ export function isPrime(num) {
 }
 
 /**
- *判断传入参数是否为数字
+ * 判断传入参数是否为数字
  *
  * @export
  * @param {number} num 要判断的数字参数
@@ -107,7 +107,7 @@ export function isValidNum(num) {
 }
 
 /**
- *获取下一个质数
+ * 获取下一个质数
  *
  * @export
  * @param {number} num 起始数字

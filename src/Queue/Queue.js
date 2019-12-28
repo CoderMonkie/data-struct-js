@@ -5,8 +5,9 @@ import {
 } from "../common/toollib"
 
 /**
- *队列结构
+ * 队列结构
  *
+ * @export Queue
  * @class Queue
  * @extends {ArrayBasedStruct}
  */
@@ -16,7 +17,7 @@ export default class Queue extends ArrayBasedStruct {
     }
 
     /**
-     *加入队列
+     * 加入队列
      *
      * @param {*} element
      * @returns
@@ -27,7 +28,7 @@ export default class Queue extends ArrayBasedStruct {
     }
 
     /**
-     *移出队列
+     * 移出队列
      *
      * @returns
      * @memberof Queue
@@ -37,7 +38,7 @@ export default class Queue extends ArrayBasedStruct {
     }
 
     /**
-     *查看队列首
+     * 查看队列首
      *
      * @returns
      * @memberof Queue
@@ -48,7 +49,7 @@ export default class Queue extends ArrayBasedStruct {
     }
 
     /**
-     *遍历队列
+     * 遍历队列
      *
      * @memberof Queue
      */

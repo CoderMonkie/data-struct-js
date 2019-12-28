@@ -5,7 +5,7 @@ import {
 import ArrayBasedStruct from './ArrayBasedStruct'
 
 /**
- *栈结构
+ * 栈结构
  *
  * @export
  * @class Stack
@@ -17,7 +17,7 @@ export default class Stack extends ArrayBasedStruct {
     }
 
     /**
-     *将新元素入栈
+     * 将新元素入栈
      *
      * @param {*} element
      * @memberof Stack
@@ -27,7 +27,7 @@ export default class Stack extends ArrayBasedStruct {
     }
 
     /**
-     *栈顶元素出栈
+     * 栈顶元素出栈
      *
      * @returns 栈顶元素
      * @memberof Stack
@@ -37,7 +37,7 @@ export default class Stack extends ArrayBasedStruct {
     }
 
     /**
-     *查看栈顶元素
+     * 查看栈顶元素
      *
      * @returns 栈顶元素
      * @memberof Stack
@@ -86,7 +86,7 @@ export default class Stack extends ArrayBasedStruct {
     }
 
     /**
-     *转为字符串
+     * 转为字符串
      *
      * @returns
      * @memberof Stack
