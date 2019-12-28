@@ -12,7 +12,7 @@ import {
  * @export
  * @class LinkedList
  */
-export default class LinkedList {
+export class LinkedList {
     constructor() {
         this.clear()
     }

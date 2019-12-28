@@ -11,7 +11,7 @@ import {
  * @class Queue
  * @extends {ArrayBasedStruct}
  */
-export default class Queue extends ArrayBasedStruct {
+export class Queue extends ArrayBasedStruct {
     constructor() {
         super()
     }

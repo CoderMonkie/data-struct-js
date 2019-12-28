@@ -2,7 +2,7 @@ import {
     isFunction
 } from "../common/toollib"
 
-export default class BinarySearchTree {
+export class BinarySearchTree {
     constructor() {
         this.__root = null
 

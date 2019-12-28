@@ -1,4 +1,4 @@
-import LinkedList from './LinkedList'
+import { LinkedList } from './LinkedList'
 import {
     isFunction,
     eqComparer
@@ -17,7 +17,7 @@ import {
  * @class DoublyLinkedList
  * @extends {LinkedList}
  */
-export default class DoublyLinkedList extends LinkedList {
+export class DoublyLinkedList extends LinkedList {
     constructor() {
         super()
     }

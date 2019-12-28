@@ -1,4 +1,4 @@
-import Queue from './Queue'
+import { Queue } from './Queue'
 
 /**
  * 优先级队列数据结构
@@ -7,7 +7,7 @@ import Queue from './Queue'
  * @class PriorityQueue
  * @extends {Queue}
  */
-export default class PriorityQueue extends Queue {
+export class PriorityQueue extends Queue {
     constructor() {
         super()
     }

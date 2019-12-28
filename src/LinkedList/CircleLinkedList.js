@@ -5,7 +5,7 @@ import {
 import {
     LinkedListNode,
 } from './LinkedListNode'
-import LinkedList from './LinkedList'
+import { LinkedList } from './LinkedList'
 
 /**
  * @description 单向循环链表
@@ -13,7 +13,7 @@ import LinkedList from './LinkedList'
  * @class CircleLinkedList
  * @extends {LinkedList}
  */
-export default class CircleLinkedList extends LinkedList {
+export class CircleLinkedList extends LinkedList {
     constructor() {
         super()
     }

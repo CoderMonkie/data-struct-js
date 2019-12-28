@@ -11,7 +11,7 @@ import ArrayBasedStruct from './ArrayBasedStruct'
  * @class Stack
  * @extends {ArrayBasedStruct}
  */
-export default class Stack extends ArrayBasedStruct {
+export class Stack extends ArrayBasedStruct {
     constructor() {
         super()
     }

@@ -10,7 +10,7 @@ const MIN_LIMIT = 11
  * @export
  * @class HashTable
  */
-export default class HashTable {
+export class HashTable {
     constructor() {
         this.__storage = []
         this.clear()
