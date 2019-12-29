@@ -38,6 +38,18 @@ const {
     HashTalbe,
     BinarySearchTree,
 } = require('data-struct-js')
+// Or ↓
+// import {
+//     Stack,
+//     Queue,
+//     PriorityQueue,
+//     LinkedList,
+//     DoublyLinkedList,
+//     CircleLinkedList,
+//     HashTalbe,
+//     BinarySearchTree,
+// } from 'data-struct-js'
+// -> may need webpack and bable-loader environment
 
 //----------------------------
 // Stack

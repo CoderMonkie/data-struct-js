@@ -12,7 +12,7 @@ const { CircleLinkedList } = require('./lib/LinkedList/CircleLinkedList')
 const { HashTable } = require('./lib/HashTable/HashTable')
 const { BinarySearchTree } = require('./lib/Tree/BinarySearchTree')
 
-export { 
+module.exports = { 
     Stack,
     Queue,
     PriorityQueue,
@@ -21,4 +21,4 @@ export {
     CircleLinkedList,
     HashTable,
     BinarySearchTree,
- }
+}
