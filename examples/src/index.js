@@ -6,6 +6,7 @@ const testDoublyLinkedList = require('./doublylinkedlist.test')
 const testCircleLinkedList = require('./circlelinkedlist.test')
 const testHashTable = require('./hashtable.test')
 const testBinarySearchTree = require('./binarysearchtree.test')
+const testRedBlackTree = require('./redblacktree.test')
 
 // 清空页面上的 log 信息
 btnClear.onclick = function (e) {
@@ -42,6 +43,9 @@ btnContainer.onclick = function (e) {
             break
         case btnBinarySearchTree.id:
             targetFunc = testBinarySearchTree
+            break
+        case btnRedBlackTree.id:
+            targetFunc = testRedBlackTree
             break
         default:
             break;

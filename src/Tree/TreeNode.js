@@ -53,4 +53,12 @@ export class RBTreeNode extends TreeNode {
             : this.parent.left)
     }
 
+    /**
+     * @description 给节点设颜色（红/黑）
+     * @param {NODE_COLOR_RED | NODE_COLOR_BLACK} color
+     * @memberof RBTreeNode
+     */
+    color(color) {
+        this.__color = color
+    }
 }
