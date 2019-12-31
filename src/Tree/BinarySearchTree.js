@@ -1,10 +1,17 @@
 import {
-    isFunction
+    isFunction,
+    comparator,
+    COMPARE_EQUAL,
+    COMPARE_GREATER
 } from "../common/toollib"
+import {
+    TreeNode
+} from './TreeNode'
 
 export class BinarySearchTree {
-    constructor() {
+    constructor(customizedComparer) {
         this.__root = null
+        this.__comparator = comparator(customizedComparer)
 
         /**
          * 插入节点方法
@@ -13,31 +20,31 @@ export class BinarySearchTree {
          * @param {TreeNode} newNode 新节点
          * @returns 插入结果 TreeNode
          */
-        this.__insert = function (root, newNode) {
+        // this.__insert = function (root, newNode) {
 
-            // 1.如果为空节点，则作直接链接该节点
-            if (root === null) {
-                return newNode
-            }
-            // 2.如果 key 相同，则更新该节点的值
-            else if (root.key === newNode.key) {
-                root.value = newNode.value
-            }
-            // 3.否则找到合适位置插入
-            else {
-                // 3.1.新节点 key 值小，找左子树插入
-                if (root.key > newNode.key) {
-                    root.left = this.__insert(root.left, newNode)
-                }
-                // 3.2.新节点 key 值大，找右子树插入
-                else {
-                    root.right = this.__insert(root.right, newNode)
-                }
-            }
+        //     // 1.如果为空节点，则作直接链接该节点
+        //     if (root === null) {
+        //         return newNode
+        //     }
+        //     // 2.如果 key 相同，则更新该节点的值
+        //     else if (root.key === newNode.key) {
+        //         root.value = newNode.value
+        //     }
+        //     // 3.否则找到合适位置插入
+        //     else {
+        //         // 3.1.新节点 key 值小，找左子树插入
+        //         if (root.key > newNode.key) {
+        //             root.left = this.__insert(root.left, newNode)
+        //         }
+        //         // 3.2.新节点 key 值大，找右子树插入
+        //         else {
+        //             root.right = this.__insert(root.right, newNode)
+        //         }
+        //     }
 
-            // 4.返回插入结果
-            return root
-        }
+        //     // 4.返回插入结果
+        //     return root
+        // }
 
         /**
          * 插入节点方法
@@ -47,24 +54,29 @@ export class BinarySearchTree {
          */
         this.__insertNode = function (root, newNode) {
             // 1.若 key 相等，则更新该节点的值
-            if (root.key === newNode.key) {
-                root.value = newNode.value
-                return
+            if (this.__comparator(root.data, newNode.data) === COMPARE_EQUAL) {
+                root.data = newNode.data
+                return newNode
             }
             // 2.若新节点 key 值小，找左子树插入
-            else if (root.key > newNode.key) {
+            // else if (root.key > newNode.key) {
+            else if (this.__comparator(root.data, newNode.data) === COMPARE_GREATER) {
                 if (root.left === null) {
+                    newNode.parent = root
                     root.left = newNode
+                    return newNode
                 } else {
-                    this.__insertNode(root.left, newNode)
+                    return this.__insertNode(root.left, newNode)
                 }
             }
             // 3.若新节点 key 值大，找右子树插入
             else {
                 if (root.right === null) {
+                    newNode.parent = root
                     root.right = newNode
+                    return newNode
                 } else {
-                    this.__insertNode(root.right, newNode)
+                    return this.__insertNode(root.right, newNode)
                 }
             }
         }
@@ -72,31 +84,31 @@ export class BinarySearchTree {
         /**
          * 删除节点方法
          * 
-         * @param {*} key key
-         * @param {TreeNode} node 节点
+         * @param {*} data data
+         * @param {TreeNode} root 节点
          * @returns {TreeNode|null} 删除指定节点后的(子)树
          */
-        this.__removeNode = function (key, node) {
-            if (node == null) return null
+        this.__removeNode = function (data, root) {
+            if (root == null) return null
 
-            if (key < node.key) {
-                node.left = this.__removeNode(key, node.left)
-                return node
+            if (this.__comparator(data, root.data) === COMPARE_LESS) {
+                root.left = this.__removeNode(data, root.left)
+                return root
             }
             // 
-            else if (key > node.key) {
-                node.right = this.__removeNode(key, node.right)
-                return node
+            else if (this.__comparator(data, root.data) === COMPARE_GREATER) {
+                root.right = this.__removeNode(data, root.right)
+                return root
             }
             //
             else {
                 let subTree = null
 
                 // 要删除的节点同时包含左右子树
-                if (node.left != null && node.right != null) {
+                if (root.left != null && root.right != null) {
 
                     // 找到右子树里最小的节点minInRight，替代删除对象节点target
-                    let minInRight = node.right
+                    let minInRight = root.right
                     let parentOfMinInRight = null
                     while (minInRight.left) {
                         parentOfMinInRight = minInRight
@@ -104,16 +116,16 @@ export class BinarySearchTree {
                     }
 
                     // minInRight的左子节点设为删除对象节点target的left
-                    minInRight.left = node.left
+                    minInRight.left = root.left
 
                     // 当删除对象节点的右子树有左子树的时候
                     if (parentOfMinInRight) {
                         // parentOfMinInRight的左子节点(原minInRight)置为空
                         parentOfMinInRight.left = null
-                        
+
                         // minInRight的右子节点为空时，将其右子节点设为删除对象节点target的right
                         if (minInRight.right === null) {
-                            minInRight.right = node.right
+                            minInRight.right = root.right
                         }
                         // minInRight的右子节点不为空时
                         else {
@@ -123,7 +135,7 @@ export class BinarySearchTree {
                                 mininRightSubMax = mininRightSubMax.right
                             }
                             // 将minInRight的右子树中的最大节点的right设为删除对象节点target的right
-                            mininRightSubMax.right = node.right
+                            mininRightSubMax.right = root.right
                         }
                     }
 
@@ -131,18 +143,18 @@ export class BinarySearchTree {
                     subTree = minInRight
                 }
                 // 只有左子树
-                else if (node.left != null) {
-                    subTree = node.left
+                else if (root.left != null) {
+                    subTree = root.left
                 }
                 // 只有右子树
-                else if (node.right != null) {
-                    subTree = node.right
+                else if (root.right != null) {
+                    subTree = root.right
                 }
                 // 既没有左子树有没有右子树
                 else {
                     // common process
                 }
-                node = null
+                root = null
                 return subTree
             }
         }
@@ -202,28 +214,28 @@ export class BinarySearchTree {
         /**
          * 根据指定 key 查找节点的方法
          *
-         * @param {*} key key
-         * @param {TreeNode} node 树的节点
+         * @param {*} data data
+         * @param {TreeNode} root 树的节点
          * @returns {TreeNode|undefined} 查找结果
          */
-        this.__searchNode = function (key, node) {
+        this.__searchNode = function (data, root) {
             // key 值小，找左子树
-            if (key < node.key) {
-                if (node.left == null) {
+            if (this.__comparator(data, root.data) === COMPARE_LESS) {
+                if (root.left == null) {
                     return undefined
                 }
-                return this.__searchNode(key, node.left)
+                return this.__searchNode(key, root.left)
             }
             // key 值大，找右子树
-            else if (key > node.key) {
-                if (node.right == null) {
+            if (this.__comparator(data, root.data) === COMPARE_GREATER) {
+                if (root.right == null) {
                     return undefined
                 }
-                return this.__searchNode(key, node.right)
+                return this.__searchNode(key, root.right)
             }
             // key === node.key
             else {
-                return node
+                return root
             }
         }
     }
@@ -275,14 +287,13 @@ export class BinarySearchTree {
     /**
      * 插入节点
      *
-     * @param {*} key key
-     * @param {*} value value
+     * @param {*} data data
      * @memberof BinarySearchTree
      */
-    insert(key, value) {
+    insert(data) {
 
         // 1.创建新节点
-        const newNode = new TreeNode(key, value)
+        let newNode = new TreeNode(data)
 
         // 2.插入新节点
         // this.__root = this.__insert(this.__root, newNode)        
@@ -296,15 +307,15 @@ export class BinarySearchTree {
     /**
      * 删除指定节点
      *
-     * @param {*} key key
+     * @param {*} data data
      * @returns {bool} 删除结果：true/false
      * @memberof BinarySearchTree
      */
-    remove(key) {
+    remove(data) {
         if (this.isEmpty) return false
-        if (!this.has(key)) return false
+        if (!this.has(data)) return false
 
-        this.__root = this.__removeNode(key, this.__root)
+        this.__root = this.__removeNode(data, this.__root)
         return true
     }
 
@@ -347,40 +358,26 @@ export class BinarySearchTree {
     /**
      * 是否有指定 key 的节点存在
      *
-     * @param {*} key key
+     * @param {*} data data
      * @returns {bool} 是否存在：true/false
      * @memberof BinarySearchTree
      */
-    has(key) {
+    has(data) {
         if (this.isEmpty) return false
-        let node = this.__searchNode(key, this.__root)
+        let node = this.__searchNode(data, this.__root)
         return !!node
     }
 
     /**
      * 查找指定 key 的节点值
      *
-     * @param {*} key key
+     * @param {*} data data
      * @returns 节点值
      * @memberof BinarySearchTree
      */
-    search(key) {
+    search(data) {
         if (this.isEmpty) return undefined
-        let node = this.__searchNode(key, this.__root)
+        let node = this.__searchNode(data, this.__root)
         return node.value
-    }
-}
-
-/**
- * 树的节点对象类
- * 内部用
- * @class TreeNode
- */
-class TreeNode {
-    constructor(key, value) {
-        this.key = key
-        this.value = value
-        this.left = null
-        this.right = null
     }
 }

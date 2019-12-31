@@ -3,47 +3,20 @@ import {
     NODE_COLOR_RED,
     NODE_COLOR_BLACK,
 } from './TreeNode'
+import {
+    BinarySearchTree
+} from './BinarySearchTree'
 
-
-export class RedBlackTree {
-    constructor() {
-        this.__root = null
+export class RedBlackTree extends BinarySearchTree {
+    constructor(customizedComparer) {
+        super(customizedComparer)
 
         /**
-         * 插入节点方法
+         * 插入节点后检查是否符合红黑树规则并适当调整
          * 
-         * @param {RBTreeNode} root 根节点
-         * @param {RBTreeNode} newNode 新节点
+         * @param {RBTreeNode} node 红黑树节点
          */
-        this.__insertNode = function (root, newNode) {
-            // 1.若 key 相等，则更新该节点的值
-            if (root.key === newNode.key) {
-                root.value = newNode.value
-                return newNode
-            }
-            // 2.若新节点 key 值小，找左子树插入
-            else if (root.key > newNode.key) {
-                if (root.left === null) {
-                    newNode.parent = root
-                    root.left = newNode
-                    return newNode                    
-                } else {
-                    return this.__insertNode(root.left, newNode)
-                }
-            }
-            // 3.若新节点 key 值大，找右子树插入
-            else {
-                if (root.right === null) {
-                    newNode.parent = root
-                    root.right = newNode
-                    return newNode                    
-                } else {
-                    return this.__insertNode(root.right, newNode)
-                }
-            }
-        }
-
-        this.__afterInsertNode = function(node) {
+        this.__afterInsertNode = function (node) {
             // 到达根节点
             if (node.parent === null) {
                 if (node.isRed) {
@@ -74,7 +47,7 @@ export class RedBlackTree {
             }
             // parent is Red and uncle is Black (contains NIL)
             // ↓
-            let reachRoot = grand === this.__root
+            let reachRoot = (grand === this.__root)
             // 父红叔黑祖黑：变色=>旋转
             // -> 旋转
             // --> 左子 + 左子 : Grand 绕 Parent 右旋
@@ -84,7 +57,11 @@ export class RedBlackTree {
                 grand.color(NODE_COLOR_RED)
                 // -> 旋转
                 parent.parent = grand.parent
-                grand.parent && (grand.parent.left = parent)
+                // grand.parent && (grand.parent.left = parent)
+                if (grand.parent) {
+                    grand.isLeftChild && (grand.parent.left = parent)
+                    grand.isRightChild && (grand.parent.right = parent)
+                }
                 grand.parent = parent
                 grand.left = parent.right
                 parent.right = grand
@@ -100,7 +77,11 @@ export class RedBlackTree {
                 grand.color(NODE_COLOR_RED)
                 //  旋转
                 parent.parent = grand.parent
-                grand.parent && (grand.parent.right = parent)
+                // grand.parent && (grand.parent.right = parent)
+                if (grand.parent) {
+                    grand.isLeftChild && (grand.parent.left = parent)
+                    grand.isRightChild && (grand.parent.right = parent)
+                }
                 grand.parent = parent
                 grand.right = parent.left
                 parent.left = grand
@@ -124,7 +105,11 @@ export class RedBlackTree {
                 grand.color(NODE_COLOR_RED)
                 // 旋转
                 node.parent = grand.parent
-                grand.parent && (grand.parent.left = node)
+                // grand.parent && (grand.parent.left = node)
+                if (grand.parent) {
+                    grand.isLeftChild && (grand.parent.left = node)
+                    grand.isRightChild && (grand.parent.right = node)
+                }
                 grand.parent = node
                 grand.left = node.right
                 node.right = grand
@@ -146,7 +131,11 @@ export class RedBlackTree {
                 grand.color(NODE_COLOR_RED)
                 // 旋转
                 node.parent = grand.parent
-                grand.parent && (grand.parent.right = node)
+                // grand.parent && (grand.parent.right = node)
+                if (grand.parent) {
+                    grand.isLeftChild && (grand.parent.left = node)
+                    grand.isRightChild && (grand.parent.right = node)
+                }
                 grand.parent = node
                 grand.left = node.right
                 node.right = grand
@@ -157,12 +146,16 @@ export class RedBlackTree {
             }
             return
         }
+
+        this.__removeNode = function (data, root) {
+            // TODO
+        }
     }
 
-    insert(key, value) {
+    insert(data) {
 
         // 1.创建新节点
-        let newNode = new RBTreeNode(key, value)
+        let newNode = new RBTreeNode(data)
 
         // 2.插入新节点
         // this.__root = this.__insert(this.__root, newNode)        
@@ -173,5 +166,9 @@ export class RedBlackTree {
         }
 
         this.__afterInsertNode(newNode)
+    }
+
+    remove(data) {
+        // TODO
     }
 }

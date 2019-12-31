@@ -7,38 +7,17 @@ export const NODE_COLOR_BLACK = false
  * @class TreeNode
  */
 export class TreeNode {
-    constructor(key, value) {
-        this.key = key
-        this.value = value
+    constructor(data) {
+        this.data = data
         this.left = null
         this.right = null
         this.parent = null
+
+        this.toString = function () {
+            return data.toString()
+        }
     }
-
-
-}
-
-/**
- * 红黑树节点类
- *
- * @export
- * @class RBTreeNode
- * @extends {TreeNode}
- */
-export class RBTreeNode extends TreeNode {
-    constructor(key, value, color = NODE_COLOR_RED) {
-        super(key, value)
-        this.__color = color
-    }
-
-    get isRed() {
-        return this.__color
-    }
-
-    get isBlack() {
-        return !this.__color
-    }
-
+    
     get isLeftChild() {
         return this.parent && this.parent.left === this
     }
@@ -51,6 +30,28 @@ export class RBTreeNode extends TreeNode {
         return (this.isLeftChild
             ? this.parent.right
             : this.parent.left)
+    }
+}
+
+/**
+ * 红黑树节点类
+ *
+ * @export
+ * @class RBTreeNode
+ * @extends {TreeNode}
+ */
+export class RBTreeNode extends TreeNode {
+    constructor(data, color = NODE_COLOR_RED) {
+        super(data)
+        this.__color = color
+    }
+
+    get isRed() {
+        return this.__color
+    }
+
+    get isBlack() {
+        return !this.__color
     }
 
     /**

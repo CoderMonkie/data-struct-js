@@ -62,6 +62,33 @@ export function eqComparer(customizedComparer) {
         defaultComparer)
 }
 
+export const COMPARE_EQUAL = 0
+export const COMPARE_GREATER = 1
+export const COMPARE_LESS = -1
+
+/**
+ * 比较器函数
+ *
+ * @export
+ * @param {function|null} customizedComparer 指定的比较器函数
+ * @returns 如果有指定则返回指定的，没有则返回默认的比较器函数
+ */
+export function comparator(customizedComparer) {
+    const defaultGtComparer = function (x, y) {
+        const val = x - y
+        if (val > 0) {
+            return COMPARE_GREATER
+        } else if (val < 0) {
+            return COMPARE_LESS
+        } else {
+            return COMPARE_EQUAL
+        }
+    }
+    return (isFunction(customizedComparer) ?
+        customizedComparer :
+        defaultGtComparer)
+}
+
 /**
  * 是否为质数(素数)
  *   质数：
