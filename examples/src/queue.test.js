@@ -20,4 +20,5 @@ function testQueue() {
     console.log('isEmpty: ', queue.isEmpty)
     console.log('size: ', queue.size)
 }
+
 module.exports = testQueue

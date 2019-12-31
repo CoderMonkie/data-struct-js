@@ -74,7 +74,7 @@ export const COMPARE_LESS = -1
  * @returns 如果有指定则返回指定的，没有则返回默认的比较器函数
  */
 export function comparator(customizedComparer) {
-    const defaultGtComparer = function (x, y) {
+    const defaultComparer = function (x, y) {
         const val = x - y
         if (val > 0) {
             return COMPARE_GREATER
@@ -86,7 +86,7 @@ export function comparator(customizedComparer) {
     }
     return (isFunction(customizedComparer) ?
         customizedComparer :
-        defaultGtComparer)
+        defaultComparer)
 }
 
 /**

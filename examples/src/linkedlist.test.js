@@ -83,4 +83,5 @@ function testLinkedList() {
 
     console.log(`8. Get last element \r\n ${lastActivity}`)
 }
+
 module.exports = testLinkedList

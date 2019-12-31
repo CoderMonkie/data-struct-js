@@ -40,4 +40,5 @@ function testPriorityQueue() {
     console.log('isEmpty: ', pQueue.isEmpty)
     console.log('size: ', pQueue.size)
 }
+
 module.exports = testPriorityQueue

@@ -148,4 +148,5 @@ function testRedBlackTree() {
 
     console.log(`The highest score of biology => ${bioTree.max.name} : ${bioTree.max.score.biology}`)
 }
+
 module.exports = testRedBlackTree

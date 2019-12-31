@@ -2,7 +2,8 @@ import {
     isFunction,
     comparator,
     COMPARE_EQUAL,
-    COMPARE_GREATER
+    COMPARE_GREATER,
+    COMPARE_LESS,
 } from "../common/toollib"
 import {
     TreeNode
@@ -15,51 +16,17 @@ export class BinarySearchTree {
 
         /**
          * 插入节点方法
-         * @deprecated
-         * @param {TreeNode|null} root 根节点
-         * @param {TreeNode} newNode 新节点
-         * @returns 插入结果 TreeNode
-         */
-        // this.__insert = function (root, newNode) {
-
-        //     // 1.如果为空节点，则作直接链接该节点
-        //     if (root === null) {
-        //         return newNode
-        //     }
-        //     // 2.如果 key 相同，则更新该节点的值
-        //     else if (root.key === newNode.key) {
-        //         root.data = newNode.data
-        //     }
-        //     // 3.否则找到合适位置插入
-        //     else {
-        //         // 3.1.新节点 key 值小，找左子树插入
-        //         if (root.key > newNode.key) {
-        //             root.left = this.__insert(root.left, newNode)
-        //         }
-        //         // 3.2.新节点 key 值大，找右子树插入
-        //         else {
-        //             root.right = this.__insert(root.right, newNode)
-        //         }
-        //     }
-
-        //     // 4.返回插入结果
-        //     return root
-        // }
-
-        /**
-         * 插入节点方法
          * 
-         * @param {TreeNode} root 根节点
+         * @param {TreeNode} root 相对根节点
          * @param {TreeNode} newNode 新节点
          */
         this.__insertNode = function (root, newNode) {
-            // 1.若 key 相等，则更新该节点的值
+            // 1.若相等，则更新该节点的值
             if (this.__comparator(root.data, newNode.data) === COMPARE_EQUAL) {
                 root.data = newNode.data
                 return newNode
             }
-            // 2.若新节点 key 值小，找左子树插入
-            // else if (root.key > newNode.key) {
+            // 2.若新节点值小，找左子树插入
             else if (this.__comparator(root.data, newNode.data) === COMPARE_GREATER) {
                 if (root.left === null) {
                     newNode.parent = root
@@ -69,7 +36,7 @@ export class BinarySearchTree {
                     return this.__insertNode(root.left, newNode)
                 }
             }
-            // 3.若新节点 key 值大，找右子树插入
+            // 3.若新节点值大，找右子树插入
             else {
                 if (root.right === null) {
                     newNode.parent = root
@@ -224,14 +191,14 @@ export class BinarySearchTree {
                 if (root.left == null) {
                     return undefined
                 }
-                return this.__searchNode(key, root.left)
+                return this.__searchNode(data, root.left)
             }
             // key 值大，找右子树
             if (this.__comparator(data, root.data) === COMPARE_GREATER) {
                 if (root.right == null) {
                     return undefined
                 }
-                return this.__searchNode(key, root.right)
+                return this.__searchNode(data, root.right)
             }
             // key === node.key
             else {
@@ -295,8 +262,7 @@ export class BinarySearchTree {
         // 1.创建新节点
         let newNode = new TreeNode(data)
 
-        // 2.插入新节点
-        // this.__root = this.__insert(this.__root, newNode)        
+        // 2.插入新节点      
         if (this.__root === null) {
             this.__root = newNode
         } else {
