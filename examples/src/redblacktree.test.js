@@ -11,7 +11,7 @@ function testRedBlackTree() {
             this.name = name
 
             this.toString = function() {
-                return `[Student ${this.name}]`
+                return `[Student ${this.name} scored: ${JSON.stringify(this.score)}]`
             }
         }
     }
@@ -22,6 +22,10 @@ function testRedBlackTree() {
     const studentD = new Student('D', {math: 79, geography: 81, biology: 83})
     const studentE = new Student('E', {math: 90, geography: 84, biology: 76})
     const studentF = new Student('F', {math: 86, geography: 85, biology: 80})
+
+    const studentTraverseFunc = function (student) {
+        console.log(`Traversing: ${student}`)
+    }
 
     const getComparator = function(subject) {
         function comparator(student1, student2) {
@@ -48,16 +52,6 @@ function testRedBlackTree() {
     let geoTree = new RedBlackTree(getComparator('geography'))
     let bioTree = new RedBlackTree(getComparator('biology'))
 
-    /**
-     * Math-Score-Top:
-     * E: 90
-     * F: 86
-     * C: 85
-     * D: 79
-     * A: 66
-     * B: 58
-     */
-
     let tree = new RedBlackTree()
     tree.insert(66);
     tree.insert(58);
@@ -83,6 +77,11 @@ function testRedBlackTree() {
     mathTree.insert(studentD)
     mathTree.insert(studentE)
     mathTree.insert(studentF)
+
+    console.log(`---- 1. RedBlackTree made by score of Math ----`)
+    mathTree.inOrderTraverse(studentTraverseFunc)
+
+    console.log(`The highest score of math => ${mathTree.max.name} : ${mathTree.max.score.math}`)
 
     // ----------------------------
 
@@ -112,8 +111,12 @@ function testRedBlackTree() {
     geoTree.insert(studentE)
     geoTree.insert(studentF)
 
+    console.log(`---- 2. RedBlackTree made by score of Geography ----`)
+    geoTree.inOrderTraverse(studentTraverseFunc)
+
+    console.log(`The highest score of geography => ${geoTree.max.name} : ${geoTree.max.score.geography}`)
+
     // ----------------------------
-    debugger
     tree = new RedBlackTree()
     tree.insert(88)
     tree.insert(78)
@@ -121,17 +124,28 @@ function testRedBlackTree() {
     tree.insert(83)
     tree.insert(76)
     tree.insert(80)
+    /**
+     *            78
+     *     -----------------
+     *     |               |
+     *     72             83
+     *  ------        ----------
+     *       |        |        |
+     *       76-Red   80-Red   88-Red
+     *
+     *
+     *
+     */
     bioTree.insert(studentA)
     bioTree.insert(studentB)
     bioTree.insert(studentC)
     bioTree.insert(studentD)
     bioTree.insert(studentE)
     bioTree.insert(studentF)
-    console.log(`${tree}`)
 
-    // 创建二叉搜索树
-    console.log(`1. Insert Nodes to make a RedBlackTree`)
-    debugger
+    console.log(`---- 3. RedBlackTree made by score of Biology ----`)
+    bioTree.inOrderTraverse(studentTraverseFunc)
 
+    console.log(`The highest score of biology => ${bioTree.max.name} : ${bioTree.max.score.biology}`)
 }
 module.exports = testRedBlackTree

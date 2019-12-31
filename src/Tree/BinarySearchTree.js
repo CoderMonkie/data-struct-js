@@ -28,7 +28,7 @@ export class BinarySearchTree {
         //     }
         //     // 2.如果 key 相同，则更新该节点的值
         //     else if (root.key === newNode.key) {
-        //         root.value = newNode.value
+        //         root.data = newNode.data
         //     }
         //     // 3.否则找到合适位置插入
         //     else {
@@ -179,7 +179,7 @@ export class BinarySearchTree {
             if (!root) return
 
             this.__inOrderTraverseNode(root.left, callback)
-            callback(root.value)
+            callback(root.data)
             this.__inOrderTraverseNode(root.right, callback)
         }
 
@@ -192,7 +192,7 @@ export class BinarySearchTree {
         this.__preOrderTraverse = function (root, callback) {
             if (!root) return
 
-            callback(root.value)
+            callback(root.data)
             this.__preOrderTraverse(root.left, callback)
             this.__preOrderTraverse(root.right, callback)
         }
@@ -208,7 +208,7 @@ export class BinarySearchTree {
 
             this.__backOrderTraverse(root.left, callback)
             this.__backOrderTraverse(root.right, callback)
-            callback(root.value)
+            callback(root.data)
         }
 
         /**
@@ -264,7 +264,7 @@ export class BinarySearchTree {
             node = node.left
         }
 
-        return node.value
+        return node.data
     }
 
     /**
@@ -281,7 +281,7 @@ export class BinarySearchTree {
             node = node.right
         }
 
-        return node.value
+        return node.data
     }
 
     /**
@@ -378,6 +378,6 @@ export class BinarySearchTree {
     search(data) {
         if (this.isEmpty) return undefined
         let node = this.__searchNode(data, this.__root)
-        return node.value
+        return node.data
     }
 }
