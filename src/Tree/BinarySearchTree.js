@@ -8,6 +8,7 @@ import {
 import {
     TreeNode
 } from './TreeNode'
+import { Queue } from "../Queue/Queue"
 
 export class BinarySearchTree {
     constructor(customizedComparer) {
@@ -179,6 +180,28 @@ export class BinarySearchTree {
         }
 
         /**
+         * 层序遍历方法
+         *
+         * @param {function} callback 回调函数
+         */
+        this.__levelOrderTraverse = function (callback) {
+            let queue = new Queue()
+            queue.enqueue(this.__root)
+
+            while (!queue.isEmpty) {
+                const node = queue.dequeue()
+                callback(node.data)
+
+                if(node.left) {
+                    queue.enqueue(node.left)
+                }
+                if(node.right) {
+                    queue.enqueue(node.right)
+                }
+            }
+        }
+
+        /**
          * 根据指定 key 查找节点的方法
          *
          * @param {*} data data
@@ -204,6 +227,31 @@ export class BinarySearchTree {
             else {
                 return root
             }
+        }
+
+        /**
+         * 利用前序遍历获取树结构的字符串
+         *
+         * @param {TreeNode} node 树的节点
+         * @param {function} arrStr 保存字符串的数组
+         * @param {function} prefix 前缀
+         */
+        this.__toString = function (node, arrStr, prefix) {
+            if (!node) return
+
+            arrStr.push(prefix + node.toString())
+            this.__toString(node.left, arrStr, `${prefix}--[left]--`)
+            this.__toString(node.right, arrStr, `${prefix}--[right]--`)
+        }
+
+        /**
+         * 打印二叉树结构
+         */
+        this.toString = function() {
+            if(this.isEmpty) return '[Empty Tree]'
+            let arr = []
+            this.__toString(this.__root, arr, "[root]--")
+            return arr.join('\r\n')
         }
     }
 
@@ -249,6 +297,39 @@ export class BinarySearchTree {
         }
 
         return node.data
+    }
+
+    /**
+     * @description 树的高度
+     * @readonly
+     * @memberof BinarySearchTree
+     */
+    get height() {
+        if (this.isEmpty) return 0
+
+        let height = 0
+        let queue = new Queue()
+        queue.enqueue(this.__root)
+        let levelSize = queue.size
+
+        while (!queue.isEmpty) {
+            let node = queue.dequeue()
+            levelSize -= 1
+
+            if(node.left) {
+                queue.enqueue(node.left)
+            }
+            if(node.right) {
+                queue.enqueue(node.right)
+            }
+
+            if(levelSize === 0) {
+                levelSize = queue.size
+                height += 1
+            }
+        }
+        
+        return height
     }
 
     /**
@@ -319,6 +400,16 @@ export class BinarySearchTree {
     postOrderTraverse(callback) {
         this.__checkBeforeTraverse(callback)
         this.__backOrderTraverse(this.__root, callback)
+    }
+
+    /**
+     * @description 层序遍历
+     * @param {function} callback 回调函数
+     * @memberof BinarySearchTree
+     */
+    levelOrderTraverse(callback) {
+        this.__checkBeforeTraverse(callback)
+        this.__levelOrderTraverse(callback)
     }
 
     /**

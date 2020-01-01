@@ -27,7 +27,8 @@ function testBinarySearchTree() {
 
     // 创建二叉搜索树
     console.log(`1. Insert Nodes to make a BinarySearchTree`)
-
+    console.log(bst.toString())
+    console.log(`该树的高度为：${bst.height}`)
     console.log(`
     /**
      * 
@@ -73,6 +74,9 @@ function testBinarySearchTree() {
     console.log(`2.3 postOrderTraverse:left->right->ROOT`)
     bst.postOrderTraverse(traverseCallbackFunc)
 
+    // 层序遍历
+    console.log(`2.4 levelOrderTraverse:ROOT->next-level-roots`)
+    bst.levelOrderTraverse(traverseCallbackFunc)
 
     // 删除二叉搜索树的节点
     console.log(`3. Remove nodes of a  BST`)
