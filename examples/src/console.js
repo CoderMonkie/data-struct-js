@@ -33,9 +33,11 @@ class Console {
 
         message.forEach(msg => {
             if (typeof msg == 'object') {
-                str += (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + '<br />';
+                str += (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + '<br/>';
             } else {
-                str += msg + '<br />';
+                msg = msg.toString().replace(/\r\n|\n/g, '<br/>')
+                    .replace(/\s/g, '&ensp;')
+                str += msg + '<br/>';
             }
         })
 
