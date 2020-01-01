@@ -37,6 +37,7 @@ const {
     CircleLinkedList,
     HashTalbe,
     BinarySearchTree,
+    RedBlackTree,
 } = require('data-struct-js')
 // Or ↓
 // import {
@@ -48,6 +49,7 @@ const {
 //     CircleLinkedList,
 //     HashTalbe,
 //     BinarySearchTree,
+//     RedBlackTree,
 // } from 'data-struct-js'
 // -> may need webpack and bable-loader environment
 

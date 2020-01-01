@@ -11,6 +11,7 @@ const { DoublyLinkedList } = require('./lib/LinkedList/DoublyLinkedList')
 const { CircleLinkedList } = require('./lib/LinkedList/CircleLinkedList')
 const { HashTable } = require('./lib/HashTable/HashTable')
 const { BinarySearchTree } = require('./lib/Tree/BinarySearchTree')
+const { RedBlackTree } = require('./lib/Tree/RedBlackTree')
 
 module.exports = { 
     Stack,
@@ -21,4 +22,5 @@ module.exports = {
     CircleLinkedList,
     HashTable,
     BinarySearchTree,
+    RedBlackTree,
 }

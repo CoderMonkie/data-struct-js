@@ -157,8 +157,7 @@ export class RedBlackTree extends BinarySearchTree {
         // 1.创建新节点
         let newNode = new RBTreeNode(data)
 
-        // 2.插入新节点
-        // this.__root = this.__insert(this.__root, newNode)        
+        // 2.插入新节点     
         if (this.__root === null) {
             this.__root = newNode
         } else {
