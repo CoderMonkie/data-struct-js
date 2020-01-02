@@ -2,7 +2,7 @@ export const NODE_COLOR_RED = true
 export const NODE_COLOR_BLACK = false
 
 /**
- * 树的节点对象类
+ * 二叉树节点类
  * 内部用
  * @class TreeNode
  */
@@ -27,9 +27,9 @@ export class TreeNode {
     }
 
     get sibling() {
-        return (this.isLeftChild
-            ? this.parent.right
-            : this.parent.left)
+        return (this.parent
+            ? this.isLeftChild ? this.parent.right : this.parent.left
+            : null)
     }
 }
 
@@ -44,6 +44,10 @@ export class RBTreeNode extends TreeNode {
     constructor(data, color = NODE_COLOR_RED) {
         super(data)
         this.__color = color
+
+        this.toString = function () {
+            return `(${this.__color ? 'Red' : 'Black'})${this.data.toString()}`
+        }
     }
 
     get isRed() {

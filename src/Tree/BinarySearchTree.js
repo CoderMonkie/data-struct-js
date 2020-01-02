@@ -10,6 +10,12 @@ import {
 } from './TreeNode'
 import { Queue } from "../Queue/Queue"
 
+/**
+ * 二叉搜索树
+ *
+ * @export
+ * @class BinarySearchTree
+ */
 export class BinarySearchTree {
     constructor(customizedComparer) {
         this.__root = null
@@ -362,7 +368,8 @@ export class BinarySearchTree {
         if (this.isEmpty) return false
         if (!this.has(data)) return false
 
-        this.__root = this.__removeNode(data, this.__root)
+        // this.__root = this.__removeNode(data, this.__root)
+        this.__removeNode(data, this.__root)
         return true
     }
 
