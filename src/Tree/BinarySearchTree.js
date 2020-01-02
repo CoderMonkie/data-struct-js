@@ -368,7 +368,8 @@ export class BinarySearchTree {
         if (this.isEmpty) return false
         if (!this.has(data)) return false
 
-        this.__root = this.__removeNode(data, this.__root)
+        // this.__root = this.__removeNode(data, this.__root)
+        this.__removeNode(data, this.__root)
         return true
     }
 

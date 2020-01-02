@@ -9,7 +9,10 @@ import {
 
 /**
  * RedBlackTree 红黑树
- *
+ * 
+ * @description
+ * 非完美平衡二叉搜索树
+ * 完美黑色平衡二叉搜索树
  * @export
  * @class RedBlackTree
  * @extends {BinarySearchTree}
@@ -125,6 +128,61 @@ export class RedBlackTree extends BalencedBinarySearchTree {
 
         this.__removeNode = function (data, root) {
             // TODO
+            if (root == null) return null
+
+            // 查找左子树
+            if (this.__comparator(data, root.data) === COMPARE_LESS) {
+                root.left = this.__removeNode(data, root.left)
+                return root
+            }
+            // 查找右子树
+            else if (this.__comparator(data, root.data) === COMPARE_GREATER) {
+                root.right = this.__removeNode(data, root.right)
+                return root
+            }
+
+            // --找到要删除的节点对象--
+
+            // 既有左子树又有右子树
+            if (root.left != null && root.right != null) {
+                let minInRight = root.right
+                while(minInRight.left){
+                    minInRight = minInRight.left
+                }
+
+                // => 转变为删除后继节点 minInRight
+                // minInRight 只有以下三种情况：
+                // Case-1：红色叶子节点
+                // Case-2：黑色叶子节点
+                // Case-3：黑色节点 + 红色右子节点
+                // 这三种情况外层分支已覆盖，都在递归中进入相应分支处理
+                // 这里只记录后继的数据值并赋给原删除对象 root 节点
+                let data = minInRight.data
+                minInRight = this.__removeNode(data, minInRight)
+                root.data = data
+            }
+            // 只有左子树（只能是black-red）
+            else if (root.left != null) {
+                root.data = root.left.data
+                root.left = null
+            }
+            // 只有右子树（只能是black-red）
+            else if (root.right != null) {
+                root.data = root.right.data
+                root.right = null
+            }
+            // 没有任何子节点（叶子节点）
+            // 删除对象为红色
+            else if (root.color === NODE_COLOR_RED) {
+                // 直接删除
+                root = null
+            }
+            // 删除对象为黑色
+            else {
+
+            }
+            
+            return root
         }
     }
 
