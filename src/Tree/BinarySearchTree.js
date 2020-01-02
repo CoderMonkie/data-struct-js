@@ -10,6 +10,12 @@ import {
 } from './TreeNode'
 import { Queue } from "../Queue/Queue"
 
+/**
+ * 二叉搜索树
+ *
+ * @export
+ * @class BinarySearchTree
+ */
 export class BinarySearchTree {
     constructor(customizedComparer) {
         this.__root = null
