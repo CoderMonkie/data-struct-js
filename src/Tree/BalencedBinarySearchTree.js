@@ -2,6 +2,9 @@ import {
     BinarySearchTree
 } from "./BinarySearchTree";
 
+export const ROTATE_LEFT = false
+export const ROTATE_RIGHT = true
+
 /**
  * 平衡二叉搜索树
  *
@@ -12,6 +15,23 @@ import {
 export class BalencedBinarySearchTree extends BinarySearchTree {
     constructor(customizedComparer) {
         super(customizedComparer)
+    }
+
+    /**
+     * 旋转
+     *
+     * @param {TreeNode} r 旋转的节点 ◎
+     * @param {TreeNode} c 圆心节点 〇
+     * @param {ROTATE_LEFT | ROTATE_RIGHT} [direction=ROTATE_LEFT]
+     * @memberof BalencedBinarySearchTree
+     */
+    rotate(r, c, direction = ROTATE_LEFT) {
+        if(direction === ROTATE_LEFT) {
+            rotateLeft(r, c)
+        }
+        else {
+            rotateRight(r, c)
+        }
     }
 
     /**

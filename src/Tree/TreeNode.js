@@ -31,6 +31,22 @@ export class TreeNode {
             ? this.isLeftChild ? this.parent.right : this.parent.left
             : null)
     }
+
+    get isLeaf() {
+        return (this.left === null && this.right === null)
+    }
+
+    get nearNephew() {
+        return (this.sibling
+            ? this.isLeftChild ? this.sibling.left : this.sibling.right
+            : null)
+    }
+
+    get farNephew() {
+        return (this.sibling
+            ? this.isLeftChild ? this.sibling.right : this.sibling.left
+            : null)
+    }
 }
 
 /**
@@ -59,11 +75,23 @@ export class RBTreeNode extends TreeNode {
     }
 
     /**
+     * 设节点颜色
+     * 
      * @description 给节点设颜色（红/黑）
      * @param {NODE_COLOR_RED | NODE_COLOR_BLACK} color
      * @memberof RBTreeNode
      */
     color(color) {
         this.__color = color
+    }
+
+    /**
+     * 设相反颜色
+     *
+     * @param {NODE_COLOR_RED | NODE_COLOR_BLACK} color
+     * @memberof RBTreeNode
+     */
+    reverseColor(color) {
+        this.__color = !color
     }
 }

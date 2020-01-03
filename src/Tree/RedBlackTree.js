@@ -146,7 +146,7 @@ export class RedBlackTree extends BalencedBinarySearchTree {
             // 既有左子树又有右子树
             if (root.left != null && root.right != null) {
                 let minInRight = root.right
-                while(minInRight.left){
+                while (minInRight.left) {
                     minInRight = minInRight.left
                 }
 
@@ -172,17 +172,118 @@ export class RedBlackTree extends BalencedBinarySearchTree {
                 root.right = null
             }
             // 没有任何子节点（叶子节点）
-            // 删除对象为红色
+            // 删除对象为红色叶子节点
             else if (root.color === NODE_COLOR_RED) {
                 // 直接删除
                 root = null
             }
-            // 删除对象为黑色
+            // 删除对象为黑色叶子节点
             else {
-
+                root = this.__removeBlackLeaf(root)
             }
-            
+
             return root
+        }
+
+
+        this.__removeBlackLeaf = function (node, deleteFlag = false) {
+            let parent = node.parent
+
+            if (parent === null) {
+                // 删除的是根节点
+                node = null
+                return null
+            }
+            let grand = parent.parent
+            let uncle = parent.sibling
+            const needStraighten = node.isLeftChild === parent.isLeftChild
+
+            // // 红色父节点
+            // if (parent.isRed) {
+            //     // 父红兄黑近侄红：兄侄旋转+黑红黑（父兄侄）
+            //     if (node.nearNephew && !node.farNephew) {
+            //         // 兄侄按node所在方向的反向旋转
+            //         this.rotate(node.sibling, node.nearNephew, node.isLeftChild)
+            //         // 旋转后变形为：父红兄黑远红侄
+            //     }
+
+            //     // 有侄子节点时
+            //     // 父红兄黑+[双红侄]或[远红侄]
+            //     if (!node.sibling.isLeaf) {
+            //         // 变色保证[黑红黑]
+            //         parent.color(NODE_COLOR_BLACK)
+            //         node.sibling.color(NODE_COLOR_RED)
+            //         node.sibling.color(NODE_COLOR_BLACK)
+            //     }
+
+            //     // 向删除节点的方向倾斜（下沉以获取更多黑色节点来做补充）
+            //     this.rotate(parent, node.sibling, node.isRightChild)
+
+            //     node = null
+            //     return null
+            // }
+            // // else 黑色父节点：此时必然三黑
+            // else if (grand === null) {
+            //     // 父黑根节点：兄变红即可
+            //     node.sibling.color(NODE_COLOR_RED)
+            //     node = null
+            //     return null
+            // }
+            // // 父黑叔红的情况：此时必然：表兄双黑
+            // else if (uncle.isRed) {
+            //     // 变色
+            //     uncle.color(NODE_COLOR_BLACK) // 将调整为新grand，需变黑
+            //     parent.nearNephew.color(NODE_COLOR_RED)
+
+            //     if (needStraighten) {
+            //         // 旋转1：父兄拉直
+            //         this.rotate(parent, node.sibling, parent.isRightChild)
+
+            //         parent.color(NODE_COLOR_RED)
+            //     }
+            //     else {
+            //         node.sibling.color(NODE_COLOR_RED)
+            //     }
+
+            //     // 旋转2：祖叔旋转
+            //     this.rotate(grand, uncle, parent.isRightChild)
+
+            //     node = null
+            //     return null
+            // }
+            // // 父黑叔黑的情况：看近表兄节点颜色来进行颜色变化
+            // // 近表兄红色：黑红黑
+            // // 近表兄黑色：红黑红
+            // else {
+            //     if(parent.nearNephew.isRed) {
+            //         parent.farNephew.color(NODE_COLOR_BLACK)
+            //         if (needStraighten) {
+            //             // 旋转1：父兄拉直
+            //             this.rotate(parent, node.sibling, parent.isRightChild)
+    
+            //             parent.color(NODE_COLOR_RED)
+            //         }
+            //         else {
+            //             node.sibling.color(NODE_COLOR_RED)
+            //         }
+            //     }
+            //     // parent.nearNephew.isBlack
+            //     else {
+            //         grand.color(NODE_COLOR_RED)
+            //         if (needStraighten) {
+            //             // 旋转1：父兄拉直
+            //             this.rotate(parent, node.sibling, parent.isRightChild)
+    
+            //             parent.color(NODE_COLOR_RED)
+            //         }
+            //         else {
+            //             node.sibling.color(NODE_COLOR_RED)
+            //         }
+            //     }
+
+            //     // 旋转2：祖叔旋转
+            //     this.rotate(grand, uncle, parent.isRightChild)
+            // }
         }
     }
 
@@ -215,5 +316,7 @@ export class RedBlackTree extends BalencedBinarySearchTree {
      */
     remove(data) {
         // TODO
+
+        this.__removeNode(data, this.__root)
     }
 }
