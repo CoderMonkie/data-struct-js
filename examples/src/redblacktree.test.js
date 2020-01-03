@@ -59,6 +59,7 @@ function testRedBlackTree() {
     tree.insert(79);
     tree.insert(90);
     tree.insert(86);
+    console.log(tree.toString())
     /**
      *         66
      *    ------------
@@ -77,6 +78,7 @@ function testRedBlackTree() {
     mathTree.insert(studentD)
     mathTree.insert(studentE)
     mathTree.insert(studentF)
+    console.log(mathTree.toString())
 
     console.log(`---- 1. RedBlackTree made by score of Math ----`)
     mathTree.inOrderTraverse(studentTraverseFunc)

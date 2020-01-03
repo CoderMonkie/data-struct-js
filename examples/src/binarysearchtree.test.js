@@ -4,8 +4,6 @@ function testBinarySearchTree() {
 
     console.log('----------Test: BinarySearchTree----------')
 
-
-
     let bst = new BinarySearchTree()
 
     bst.insert(8)
@@ -81,10 +79,18 @@ function testBinarySearchTree() {
     // 删除二叉搜索树的节点
     console.log(`3. Remove nodes of a  BST`)
     console.log('remove 13', bst.remove(13))
+    console.log('After remove 13 : ')
+    console.log(bst.toString())
     console.log('remove 11', bst.remove(11))
+    console.log('After remove 11 : ')
+    console.log(bst.toString())
     console.log('remove 5', bst.remove(5))
+    console.log('After remove 5 : ')
+    console.log(bst.toString())
     console.log('remove 4', bst.remove(4))  // true
     console.log('remove 4', bst.remove(4))  // false
+    console.log('After remove 4 : ')
+    console.log(bst.toString())
 }
 
 module.exports = testBinarySearchTree
