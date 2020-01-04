@@ -42,8 +42,8 @@ export class RedBlackTree extends BalencedBinarySearchTree {
 
             // --- now: node.parent.isRed ---
 
-            let grand = parent.parent
             let parent = node.parent
+            let grand = parent.parent
 
             // 父红叔红祖黑：变色=>递归
             if (node.parent.sibling && node.parent.sibling.isRed) {
@@ -126,8 +126,8 @@ export class RedBlackTree extends BalencedBinarySearchTree {
             return
         }
 
+        // TODO
         this.__removeNode = function (data, root) {
-            // TODO
             if (root == null) return null
 
             // 查找左子树
@@ -158,7 +158,7 @@ export class RedBlackTree extends BalencedBinarySearchTree {
                 // 这三种情况外层分支已覆盖，都在递归中进入相应分支处理
                 // 这里只记录后继的数据值并赋给原删除对象 root 节点
                 let data = minInRight.data
-                minInRight = this.__removeNode(data, minInRight)
+                this.__removeNode(data, minInRight)
                 root.data = data
             }
             // 只有左子树（只能是black-red）
@@ -260,7 +260,7 @@ export class RedBlackTree extends BalencedBinarySearchTree {
             //         if (needStraighten) {
             //             // 旋转1：父兄拉直
             //             this.rotate(parent, node.sibling, parent.isRightChild)
-    
+
             //             parent.color(NODE_COLOR_RED)
             //         }
             //         else {
@@ -273,7 +273,7 @@ export class RedBlackTree extends BalencedBinarySearchTree {
             //         if (needStraighten) {
             //             // 旋转1：父兄拉直
             //             this.rotate(parent, node.sibling, parent.isRightChild)
-    
+
             //             parent.color(NODE_COLOR_RED)
             //         }
             //         else {
@@ -284,6 +284,90 @@ export class RedBlackTree extends BalencedBinarySearchTree {
             //     // 旋转2：祖叔旋转
             //     this.rotate(grand, uncle, parent.isRightChild)
             // }
+        }
+
+        /**
+         * 失黑调整
+         *  
+         * @description __fixLostBlack参考自av30515237
+         */
+        this.__fixLostBlack = function (node) {
+
+            while (node !== this.__root) {
+                let parent = node.parent
+                let brother = node.sibling
+
+                // LB-1：父黑兄红双黑侄
+                if (brother.isRed) {
+                    this.rotate(parent, brother, node.isRightChild)
+                    brother.color(NODE_COLOR_BLACK)
+                    parent.color(NODE_COLOR_RED)
+                    // 此时已变为LB-2R：父红兄黑无红侄（0侄子）
+
+                    if (this.__root === parent) {
+                        this.__root = brother
+                    }
+
+                    brother = node.sibling
+                    parent = node.parent
+                }
+
+
+                // LB-3：兄黑红侄
+                if (brother.left && brother.left.isRed) {
+                    let oldColor = parent.isRed
+                    parent.color(NODE_COLOR_BLACK)
+
+                    if (parent === this.__root) {
+                        this.__root = brother
+                    }
+
+                    if (node.isLeftChild) { // 近侄红
+                        this.rotateRight(brother, brother.left)
+                        this.rotateLeft(parent, parent.right)
+                    } else {
+                        brother.left.color(NODE_COLOR_BLACK)
+                        this.rotateRight(parent, parent.left)
+                    }
+                    // parent.parent.color(oldColor)
+                    return
+                }
+                // 对称的LB-3
+                else if (brother.right && brother.right.isRed) {
+                    let oldColor = parent.isRed
+                    parent.color(NODE_COLOR_BLACK)
+
+                    if (parent === this.__root) {
+                        this.__root = brother
+                    }
+
+                    if (node.isLeftChild) {
+                        brother.right.color(NODE_COLOR_BLACK)
+                        this.rotateLeft(parent, parent.right)
+                    }
+                    // 近侄红
+                    else {
+                        this.rotateLeft(brother, brother.right)
+                        this.rotateRight(parent, brother.left)
+                    }
+                    // parent.parent.color(oldColor)
+                    return
+                }
+
+                // LB-2R：父红兄黑（无红侄）
+                if (node.parent.isRed) {
+                    parent.color(NODE_COLOR_BLACK)
+                    brother.color(NODE_COLOR_RED)
+                    return
+                }
+                // LB-2B：父黑兄黑（无红侄）
+                else {
+                    brother.color(NODE_COLOR_RED)
+
+                    // 递归
+                    node = parent
+                }
+            }
         }
     }
 
@@ -313,10 +397,51 @@ export class RedBlackTree extends BalencedBinarySearchTree {
      *
      * @param {*} data
      * @memberof RedBlackTree
+     * @description
+     * 两种实现方式：
+     *      递归法：__removeNode
+     *      迭代法：remove/__fixLostBlack
      */
     remove(data) {
-        // TODO
+        let nodeToDelete = this.__searchNode(data, this.__root)
+        if (!nodeToDelete) return false
 
-        this.__removeNode(data, this.__root)
+        let successorNode = null
+        this.__size -= 1
+
+        while (nodeToDelete.left || nodeToDelete.right) {
+            // 只有红右子节点
+            if (!nodeToDelete.left) {
+                successorNode = nodeToDelete.right
+            }
+            // 只有红左子节点
+            else if (!nodeToDelete.right) {
+                successorNode = nodeToDelete.left
+            }
+            // 左右都存在子节点时找后继
+            else {
+                successorNode = this.__successor(nodeToDelete.right)
+            }
+            nodeToDelete.data = successorNode.data
+
+            // 迭代
+            nodeToDelete = successorNode
+        }
+
+        if (nodeToDelete.isBlack) {
+            // balance
+            this.__fixLostBlack(nodeToDelete)
+        }
+
+        if (nodeToDelete.parent) {
+            nodeToDelete.isLeftChild && (nodeToDelete.parent.left = null)
+            nodeToDelete.isRightChild && (nodeToDelete.parent.right = null)
+        }
+
+        if (nodeToDelete === this.__root) {
+            this.__root = null
+        }
+
+        return true
     }
 }

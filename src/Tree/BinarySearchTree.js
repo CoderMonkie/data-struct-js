@@ -8,7 +8,9 @@ import {
 import {
     TreeNode
 } from './TreeNode'
-import { Queue } from "../Queue/Queue"
+import {
+    Queue
+} from "../Queue/Queue"
 
 /**
  * 二叉搜索树
@@ -198,10 +200,10 @@ export class BinarySearchTree {
                 const node = queue.dequeue()
                 callback(node.data)
 
-                if(node.left) {
+                if (node.left) {
                     queue.enqueue(node.left)
                 }
-                if(node.right) {
+                if (node.right) {
                     queue.enqueue(node.right)
                 }
             }
@@ -236,6 +238,30 @@ export class BinarySearchTree {
         }
 
         /**
+         * 后继
+         */
+        this.__successor = function (node) {
+            if (!node) return null
+
+            while (node.left) {
+                node = node.left
+            }
+            return node
+        }
+
+        /**
+         * 前驱
+         */
+        this.__predecessor = function (node) {
+            if (!node) return null
+
+            while (node.right) {
+                node = node.right
+            }
+            return node
+        }
+
+        /**
          * 利用前序遍历获取树结构的字符串
          *
          * @param {TreeNode} node 树的节点
@@ -253,8 +279,8 @@ export class BinarySearchTree {
         /**
          * 打印二叉树结构
          */
-        this.toString = function() {
-            if(this.isEmpty) return '[Empty Tree]'
+        this.toString = function () {
+            if (this.isEmpty) return '[Empty Tree]'
             let arr = []
             this.__toString(this.__root, arr, "[root]--")
             return arr.join('\r\n')
@@ -322,19 +348,19 @@ export class BinarySearchTree {
             let node = queue.dequeue()
             levelSize -= 1
 
-            if(node.left) {
+            if (node.left) {
                 queue.enqueue(node.left)
             }
-            if(node.right) {
+            if (node.right) {
                 queue.enqueue(node.right)
             }
 
-            if(levelSize === 0) {
+            if (levelSize === 0) {
                 levelSize = queue.size
                 height += 1
             }
         }
-        
+
         return height
     }
 

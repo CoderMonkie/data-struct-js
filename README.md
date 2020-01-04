@@ -218,6 +218,7 @@ bst.remove(13)
 + CircleDoublyLinkedList
 + [HashTalbe](src/HashTable/HashTable.js)
 + [BinarySearchTree](src/Tree/BinarySearchTree.js)
++ [RedBlackTree](src/Tree/RedBlackTree.js)
 
 coming soon:
 + RedBlackTree

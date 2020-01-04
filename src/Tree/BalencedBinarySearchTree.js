@@ -27,10 +27,10 @@ export class BalencedBinarySearchTree extends BinarySearchTree {
      */
     rotate(r, c, direction = ROTATE_LEFT) {
         if(direction === ROTATE_LEFT) {
-            rotateLeft(r, c)
+            this.rotateLeft(r, c)
         }
         else {
-            rotateRight(r, c)
+            this.rotateRight(r, c)
         }
     }
 
