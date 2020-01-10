@@ -299,7 +299,7 @@ export class RedBlackTree extends BalencedBinarySearchTree {
 
                 // LB-1：父黑兄红双黑侄
                 if (brother.isRed) {
-                    this.rotate(parent, brother, node.isRightChild)
+                    this.rotate(parent, node.isRightChild)
                     brother.color(NODE_COLOR_BLACK)
                     parent.color(NODE_COLOR_RED)
                     // 此时已变为LB-2R：父红兄黑无红侄（0侄子）
@@ -312,7 +312,6 @@ export class RedBlackTree extends BalencedBinarySearchTree {
                     parent = node.parent
                 }
 
-
                 // LB-3：兄黑红侄
                 if (brother.left && brother.left.isRed) {
                     let oldColor = parent.isRed
@@ -323,13 +322,13 @@ export class RedBlackTree extends BalencedBinarySearchTree {
                     }
 
                     if (node.isLeftChild) { // 近侄红
-                        this.rotateRight(brother, brother.left)
-                        this.rotateLeft(parent, parent.right)
+                        this.rotateRight(brother)
+                        this.rotateLeft(parent)
                     } else {
                         brother.left.color(NODE_COLOR_BLACK)
-                        this.rotateRight(parent, parent.left)
+                        this.rotateRight(parent)
                     }
-                    // parent.parent.color(oldColor)
+                    parent.parent.color(oldColor)
                     return
                 }
                 // 对称的LB-3
@@ -343,14 +342,14 @@ export class RedBlackTree extends BalencedBinarySearchTree {
 
                     if (node.isLeftChild) {
                         brother.right.color(NODE_COLOR_BLACK)
-                        this.rotateLeft(parent, parent.right)
+                        this.rotateLeft(parent)
                     }
                     // 近侄红
                     else {
-                        this.rotateLeft(brother, brother.right)
-                        this.rotateRight(parent, brother.left)
+                        this.rotateLeft(brother)
+                        this.rotateRight(parent)
                     }
-                    // parent.parent.color(oldColor)
+                    parent.parent.color(oldColor)
                     return
                 }
 

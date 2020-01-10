@@ -20,85 +20,76 @@ export class BalencedBinarySearchTree extends BinarySearchTree {
     /**
      * 旋转
      *
-     * @param {TreeNode} r 旋转的节点 ◎
-     * @param {TreeNode} c 圆心节点 〇
+     * @param {TreeNode} n 旋转的节点 ◎
      * @param {ROTATE_LEFT | ROTATE_RIGHT} [direction=ROTATE_LEFT]
      * @memberof BalencedBinarySearchTree
      */
-    rotate(r, c, direction = ROTATE_LEFT) {
+    rotate(n, direction = ROTATE_LEFT) {
         if(direction === ROTATE_LEFT) {
-            this.rotateLeft(r, c)
+            this.rotateLeft(n)
         }
         else {
-            this.rotateRight(r, c)
+            this.rotateRight(n)
         }
     }
 
     /**
      * 左旋
      * 
-     *   ◎r
+     *   ◎n
      *    \
      *     〇c
      * ↓---------
      *     〇c
      *   　/
-     *   ◎r
+     *   ◎n
      * 
-     * @param {TreeNode} r 旋转的节点 ◎
-     * @param {TreeNode} c 圆心节点 〇
+     * @param {TreeNode} n 旋转的节点 ◎
      * @memberof BalencedBinarySearchTree
      */
-    rotateLeft(r, c) {
-        let grand = r.parent
-
+    rotateLeft(n) {
         // 1. grand 层
-        if (r.isLeftChild) {
-            grand.left = c
-        } else if (r.isRightChild) {
-            grand.right = c
+        if (n.isLeftChild) {
+            n.parent.left = n.right
+        } else if (n.isRightChild) {
+            n.parent.right = n.right
         }
+        n.right.parent = n.parent
 
         // 2. 旋转层
-        r.right = c.left
-        r.parent = c
-
-        // 3. 圆心层
-        c.parent = grand
-        c.left = r
+        n.parent = n.right
+        n.right = n.right.left
+        n.right && (n.right.parent = n)
+        n.parent.left = n
     }
 
     /**
      * 右旋
      * 
-     *      ◎r
+     *      ◎n
      *     /
      *    〇c
      * --------↓
      *    〇c
      *   　\
-     *      ◎r
+     *      ◎n
      * 
-     * @param {TreeNode} r 旋转的节点 ◎
-     * @param {TreeNode} c 圆心节点 〇
+     * @param {TreeNode} n 旋转的节点 ◎
      * @memberof BalencedBinarySearchTree
      */
-    rotateRight(r, c) {
-        let grand = r.parent
-
+    rotateRight(n) {
         // 1. grand 层
-        if (r.isLeftChild) {
-            grand.left = c
-        } else if (r.isRightChild) {
-            grand.right = c
+        if (n.isLeftChild) {
+            n.parent.left = n.left
+        } else if (n.isRightChild) {
+            n.parent.right = n.left
         }
+        n.left.parent = n.parent
 
-        // 2. 旋转层
-        r.left = c.right
-        r.parent = c
-
-        // 3. 圆心层
-        c.parent = grand
-        c.right = r
+        // 2. 旋转层        
+        n.parent = n.left
+        n.left = n.left.right
+        n.left && (n.left.parent = n)
+        n.parent.right = n
     }
 }

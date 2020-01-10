@@ -149,6 +149,36 @@ function testRedBlackTree() {
     bioTree.inOrderTraverse(studentTraverseFunc)
 
     console.log(`The highest score of biology => ${bioTree.max.name} : ${bioTree.max.score.biology}`)
+
+    // remove node of RBTree
+    console.log(`---- 4. Remove node of RedBlackTree ----`)
+    
+    let rbTree = new RedBlackTree()
+    rbTree.insert(55)
+    rbTree.insert(46)
+    rbTree.insert(38)
+    rbTree.insert(72)
+    rbTree.insert(51)
+    rbTree.insert(33)
+    rbTree.insert(26)
+    rbTree.insert(41)
+    rbTree.insert(12)
+    rbTree.insert(29)
+    rbTree.insert(52)
+    rbTree.insert(78)
+    rbTree.insert(64)
+    rbTree.insert(57)
+    rbTree.insert(66)
+    console.log(rbTree.toString())
+
+    rbTree.remove(51)
+    console.log('remove 51: ', rbTree.toString())
+    rbTree.remove(52)
+    console.log('remove 52: ', rbTree.toString())
+    rbTree.remove(26)
+    console.log('remove 26: ', rbTree.toString())
+    rbTree.remove(78)
+    console.log('remove 78: ', rbTree.toString())
 }
 
 module.exports = testRedBlackTree
