@@ -1,5 +1,5 @@
-// const { RedBlackTree } = require('data-struct-js')
-const { RedBlackTree } = require('../../lib/Tree/RedBlackTree')
+// const { RedBlackTree } = require('../../lib/Tree/RedBlackTree')
+const { RedBlackTree } = require('data-struct-js')
 
 function testRedBlackTree() {
 

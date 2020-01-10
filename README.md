@@ -221,7 +221,6 @@ bst.remove(13)
 + [RedBlackTree](src/Tree/RedBlackTree.js)
 
 coming soon:
-+ RedBlackTree
 + Graph
 
 ### Original data structures in JavaScript:
