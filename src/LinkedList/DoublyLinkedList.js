@@ -1,7 +1,6 @@
 import { LinkedList } from './LinkedList'
 import {
     isFunction,
-    eqComparer
 } from '../common/toollib'
 import {
     LinkedListNode,
@@ -18,8 +17,8 @@ import {
  * @extends {LinkedList}
  */
 export class DoublyLinkedList extends LinkedList {
-    constructor() {
-        super()
+    constructor(customizedComparer = null) {
+        super(customizedComparer)
     }
 
     /**
@@ -146,13 +145,12 @@ export class DoublyLinkedList extends LinkedList {
      * 删除指定数据的元素
      *
      * @param {*} data 元素数据
-     * @param {*} customizedComparer 自定义比对方法
      * @returns 返回删除的元素数据
      * @memberof DoublyLinkedList
      */
-    remove(data, customizedComparer) {
+    remove(data) {
         // 1.根据指定数据取得下标值
-        let index = this.indexOf(data, customizedComparer)
+        let index = this.indexOf(data)
 
         // 2.检查下标值是否正常取到
         if (index === -1) return false
@@ -214,14 +212,13 @@ export class DoublyLinkedList extends LinkedList {
      * @returns 位置下标
      * @memberof DoublyLinkedList
      */
-    indexOf(data, customizedComparer) {
+    indexOf(data) {
         let index = 0
         let current = this.__head
-        const comparerFunc = eqComparer(customizedComparer)
 
         // 根据指点数据查找节点元素
         while (current) {
-            if (comparerFunc(current.data, data)) {
+            if (this.__comparator(current.data, data)) {
                 return index
             }
             current = current.next
