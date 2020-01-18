@@ -32,7 +32,11 @@ class Console {
         logDiv.classList.add('log-info')
 
         message.forEach(msg => {
-            if (typeof msg == 'object') {
+            if (msg === undefined) {
+                str += 'undefined'
+            } else if (msg === null) {
+                str += 'null'
+            } else if (typeof msg == 'object') {
                 str += (JSON && JSON.stringify ? JSON.stringify(msg) : msg) + '<br/>';
             } else {
                 msg = msg.toString().replace(/\r\n|\n/g, '<br/>')
