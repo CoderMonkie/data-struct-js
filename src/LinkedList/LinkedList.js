@@ -13,7 +13,12 @@ import {
  * @class LinkedList
  */
 export class LinkedList {
-    constructor() {
+    /**
+     * 构造函数
+     * @param {function|null} customizedComparer 可选参数 指定比对方法
+     */
+    constructor(customizedComparer = null) {
+        this.__comparator = eqComparer(customizedComparer)
         this.clear()
     }
 
@@ -156,13 +161,12 @@ export class LinkedList {
      * 删除链表中某个元素
      *
      * @param {*} data 元素数据
-     * @param {function} [customizedComparer=null] 可选参数，指定比对方法
      * @returns 删除结果：true/false
      * @memberof LinkedList
      */
-    remove(data, customizedComparer = null) {
+    remove(data) {
 
-        const position = this.indexOf(data, customizedComparer)
+        const position = this.indexOf(data)
 
         if (position === -1) return false
 
@@ -256,18 +260,16 @@ export class LinkedList {
      * 根据指定元素数据获取在链表中的位置下标
      *
      * @param {*} data 元素数据
-     * @param {function|null} customizedComparer 指定的比对方法
      * @returns 位置下标
      * @memberof LinkedList
      */
-    indexOf(data, customizedComparer) {
+    indexOf(data) {
         let index = 0
         let current = this.__head
-        const comparerFunc = eqComparer(customizedComparer)
 
         // 根据指点数据查找节点元素
         while (current) {
-            if (comparerFunc(current.data, data)) {
+            if (this.__comparator(current.data, data)) {
                 return index
             }
             current = current.next

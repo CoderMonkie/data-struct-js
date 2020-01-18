@@ -23,7 +23,7 @@ function testDoublyLinkedList() {
             }
         }
 
-        comparer(x, y) {
+        static comparer(x, y) {
             if (!x instanceof Activity || !y instanceof Activity) throw ("Not the instance of Activity")
             return x.step === y.step && x.activity === y.activity
         }
@@ -37,7 +37,7 @@ function testDoublyLinkedList() {
     let activity5 = new Activity(5, 'Deployment and maintenance')
     let activity6 = new Activity(6, 'Maintaining')
 
-    let lst = new DoublyLinkedList()
+    let lst = new DoublyLinkedList(Activity.comparer)
 
     // 添加元素
     lst.append(activity1)
@@ -55,7 +55,7 @@ function testDoublyLinkedList() {
     console.log(`2. Insert \r\n ${lst.toString()}`)
 
     // 移除元素
-    lst.remove(activity6, activity6.comparer)
+    lst.remove(activity6)
 
     console.log(`3. Remove No.6 element \r\n ${lst.toString()}`)
 
@@ -73,7 +73,7 @@ function testDoublyLinkedList() {
     console.log(`5. Update No.4 element \r\n ${lst.toString()}`)
 
     // 获取下标
-    let index = lst.indexOf(data4, data4.comparer)
+    let index = lst.indexOf(data4)
 
     console.log(`6. Get index of No.4 element \r\n ${index}`)
 
