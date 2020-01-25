@@ -1,3 +1,8 @@
+/*
+ * @Date         : 2019-12-27 19:42:05
+ * @LastEditors  : Mao NianYou
+ * @LastEditTime : 2020-01-25 21:51:25
+ */
 const testStack = require('./stack.test')
 const testQueue = require('./queue.test')
 const testProirityQueue = require('./priorityqueue.test')
@@ -7,6 +12,8 @@ const testCircleLinkedList = require('./circlelinkedlist.test')
 const testHashTable = require('./hashtable.test')
 const testBinarySearchTree = require('./binarysearchtree.test')
 const testRedBlackTree = require('./redblacktree.test')
+const testDirectedGraph = require('./directedgraph.test')
+const testUndirectedGraph = require('./undirectedgraph.test')
 
 // 清空页面上的 log 信息
 btnClear.onclick = function (e) {
@@ -46,6 +53,12 @@ btnContainer.onclick = function (e) {
             break
         case btnRedBlackTree.id:
             targetFunc = testRedBlackTree
+            break
+        case btnDirectedGraph.id:
+            targetFunc = testDirectedGraph
+            break
+        case btnUndirectedGraph.id:
+            targetFunc = testUndirectedGraph
             break
         default:
             break;
