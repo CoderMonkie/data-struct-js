@@ -1,3 +1,16 @@
+/**
+ * Copyright (c) 2020
+ *
+ * MIT
+ *
+ * example/comfirm for UndirectedGraph
+ *
+ * @summary example/comfirm for UndirectedGraph
+ * @author CoderMonkey <maonianyou@gmail.com>
+ *
+ * Created at     : 2020-01-25 12:17:09 
+ * Last modified  : 2020-01-26 19:04:17
+ */
 const { UndirectedGraph } = require('../../lib/Graph/UndirectedGraph')
 // const { UndirectedGraph } = require('data-struct-js')
 
@@ -25,6 +38,9 @@ function testUndirectedGraph() {
     const vD = new TestVertext('D')
     const vE = new TestVertext('E')
     const vF = new TestVertext('F')
+    const vG = new TestVertext('G')
+    const vH = new TestVertext('H')
+    const vI = new TestVertext('I')
 
     const vTraverseFunc = function (v) {
         console.log(`Traversing: ${v.toString()}`)
@@ -41,29 +57,39 @@ function testUndirectedGraph() {
     udgraph.addVertex(vD)
     udgraph.addVertex(vE)
     udgraph.addVertex(vF)
+    udgraph.addVertex(vG)
+    udgraph.addVertex(vH)
+    udgraph.addVertex(vI)
     
     // 添加无向图的边
     udgraph.setArc(vA, vB)
     udgraph.setArc(vA, vC)
     udgraph.setArc(vA, vD)
-    udgraph.setArc(vB, vC)
     udgraph.setArc(vB, vE)
-    udgraph.setArc(vC, vD)
-    udgraph.setArc(vC, vE)
-    udgraph.setArc(vC, vF)
-    udgraph.setArc(vD, vF)
-    udgraph.setArc(vE, vF)
+    udgraph.setArc(vB, vF)
+    udgraph.setArc(vC, vG)
+    udgraph.setArc(vD, vG)
+    udgraph.setArc(vD, vH)
+    udgraph.setArc(vE, vI)
 
     // 打印构建出的有向图信息
     console.log(udgraph.toString())
 
     // 广度优先遍历
     console.log('Breath First Search 01 : ')
-    udgraph.bfsTraverse(vF, vTraverseFunc)
+    udgraph.bfsTraverse(vA, vTraverseFunc)
     console.log('Breath First Search 02 : ')
     udgraph.bfsTraverse(vTraverseFunc)
     console.log('Breath First Search 03: ')
     udgraph.bfsTraverse(null, vTraverseFunc)
+
+    // 深度优先遍历
+    console.log('----Depth First Search 01 : ----')
+    udgraph.dfsTraverse(vA, vTraverseFunc)
+    console.log('----Depth First Search 02 : ----')
+    udgraph.dfsTraverse(vTraverseFunc)
+    console.log('----Depth First Search 03: ----')
+    udgraph.dfsTraverse(null, vTraverseFunc)
 }
 
 module.exports = testUndirectedGraph
