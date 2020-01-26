@@ -9,7 +9,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  *
  * Created at     : 2020-01-25 12:17:09 
- * Last modified  : 2020-01-26 19:04:17
+ * Last modified  : 2020-01-26 19:12:58
  */
 const { UndirectedGraph } = require('../../lib/Graph/UndirectedGraph')
 // const { UndirectedGraph } = require('data-struct-js')
@@ -60,6 +60,7 @@ function testUndirectedGraph() {
     udgraph.addVertex(vG)
     udgraph.addVertex(vH)
     udgraph.addVertex(vI)
+    // 不添加顶点，直接添加边也是可以的
     
     // 添加无向图的边
     udgraph.setArc(vA, vB)

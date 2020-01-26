@@ -8,7 +8,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  *
  * Created at     : 2020-01-24 15:17:02
- * Last modified  : 2020-01-26 19:06:39
+ * Last modified  : 2020-01-26 19:10:02
  */
 import {
     GraphBase,
@@ -118,10 +118,16 @@ export class UndirectedGraph extends GraphBase {
      */
     setArc(data1, data2, info) {
         let v1 = this.__findVertex(data1)
-        if (!v1) v1 = new VertexNode(data1)
+        if (!v1) {
+            v1 = new VertexNode(data1)
+            this.__vertexes.push(v1)
+        }
 
         let v2 = this.__findVertex(data2)
-        if (!v2) v2 = new VertexNode(data2)
+        if (!v2) {
+            v2 = new VertexNode(data2)
+            this.__vertexes.push(v2)
+        }
 
         // let arc = this.__findArc(v1.first, v1, v2) || this.__findArc(v2.first, v2, v1)
         let arc = this.__findArc(v1.first, v1, v2)
