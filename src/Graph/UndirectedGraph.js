@@ -8,7 +8,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  *
  * Created at     : 2020-01-24 15:17:02
- * Last modified  : 2020-01-26 19:10:02
+ * Last modified  : 2020-01-26 23:26:51
  */
 import {
     GraphBase,
@@ -33,39 +33,6 @@ import {
 export class UndirectedGraph extends GraphBase {
     constructor(customizedComparer = null) {
         super(customizedComparer)
-
-        /**
-         * @summary 查找顶点
-         */
-        this.__findVertex = function (data) {
-            if (this.vertexCount === 0) return undefined
-
-            return this.__vertexes.find(v => {
-                return this.__comparator(v.data, data)
-            })
-        }
-
-        /**
-         * @summary 查找边
-         */
-        this.__findArc = function (arc, v1, v2) {
-            while (arc) {
-                if (arc.hasVertex(v2)) return arc
-                arc = arc.nextArc(v1)
-            }
-            return null
-        }
-
-        /**
-         * @summary 初始化所以顶点的探索状态
-         */
-        this.__initVisitStatus = function () {
-            let map = new Map()
-            this.__vertexes.forEach(v => {
-                map.set(v, VisitStatus.INIT)
-            })
-            return map
-        }
 
         /**
          * 用字符串表示出该图的信息
@@ -118,56 +85,30 @@ export class UndirectedGraph extends GraphBase {
      */
     setArc(data1, data2, info) {
         let v1 = this.__findVertex(data1)
-        if (!v1) {
-            v1 = new VertexNode(data1)
-            this.__vertexes.push(v1)
-        }
-
         let v2 = this.__findVertex(data2)
-        if (!v2) {
-            v2 = new VertexNode(data2)
-            this.__vertexes.push(v2)
-        }
 
+        let arc
         // let arc = this.__findArc(v1.first, v1, v2) || this.__findArc(v2.first, v2, v1)
-        let arc = this.__findArc(v1.first, v1, v2)
+        if (v1 && v2) {
+            arc = this.__findArc(v1.first, v1, v2)
+        }
+        else {
+            if (!v1) {
+                v1 = new VertexNode(data1)
+                this.__vertexes.push(v1)
+            }
+            if (!v2) {
+                v2 = new VertexNode(data2)
+                this.__vertexes.push(v2)
+            }
+        }
 
         // 边不存在，则添加
         if (!arc) {
             arc = new Arc(v1, v2, info)
 
-            let tempArc = v1.first
-            let pre = tempArc
-            if (!tempArc) {
-                v1.first = arc
-            } else {
-                while (tempArc) {
-                    pre = tempArc
-                    tempArc = tempArc.nextArc(v1)
-                }
-                if (pre.vertex1 === v1) {
-                    pre.orderNext = arc
-                } else {
-                    pre.reverseNext = arc
-                }
-            }
-
-            tempArc = v2.first
-            pre = tempArc
-
-            if (!tempArc) {
-                v2.first = arc
-            } else {
-                while (tempArc) {
-                    pre = tempArc
-                    tempArc = tempArc.nextArc(v2)
-                }
-                if (pre.vertex1 === v2) {
-                    pre.orderNext = arc
-                } else {
-                    pre.reverseNext = arc
-                }
-            }
+            this.__addArc(v1, arc)
+            this.__addArc(v2, arc)
         }
         // 对于已存在的边，更新边（权重等）数据
         else {
@@ -313,6 +254,79 @@ export class UndirectedGraph extends GraphBase {
             vertex = stack.pop()
         }
     }
+    
+    /**
+     * @description 查找顶点
+     *
+     * @param {*} data
+     * @returns VertexNode | undefined
+     * @memberof UndirectedGraph
+     */
+    __findVertex(data) {
+        if (this.vertexCount === 0) return undefined
+
+        return this.__vertexes.find(v => {
+            return this.__comparator(v.data, data)
+        })
+    }
+
+    /**
+     * @description 查找边
+     *
+     * @param {Arc} arc
+     * @param {VertexNode} v1
+     * @param {VertexNode} v2
+     * @returns Arc | null
+     * @memberof UndirectedGraph
+     */
+    __findArc(arc, v1, v2) {
+        while (arc) {
+            if (arc.hasVertex(v2)) return arc
+            arc = arc.nextArc(v1)
+        }
+        return null
+    }
+
+    /**
+     * @description 初始化所以顶点的探索状态
+     *
+     * @returns Map
+     * @memberof UndirectedGraph
+     */
+    __initVisitStatus() {
+        let map = new Map()
+        this.__vertexes.forEach(v => {
+            map.set(v, VisitStatus.INIT)
+        })
+        return map
+    }
+
+    /**
+     * @description 内部函数，给顶点添加边
+     *
+     * @param {VertexNode} v 顶点
+     * @param {Arc} arc 边
+     * @memberof UndirectedGraph
+     */
+    __addArc(v, arc) {
+        if (arc && !arc.hasVertex(v)) throw new Error(`canot add arc:${arc.toString()} to vertex:${v.toString()}`)
+
+        let tempArc = v.first
+        let pre = tempArc
+        if (!tempArc) {
+            v.first = arc
+        } else {
+            while (tempArc) {
+                pre = tempArc
+                tempArc = tempArc.nextArc(v)
+            }
+            if (pre.vertex1 === v) {
+                pre.orderNext = arc
+            } else {
+                pre.reverseNext = arc
+            }
+        }
+    }
 }
 
 /**
@@ -323,6 +337,10 @@ class VertexNode {
     constructor(data) {
         this.data = data    // * data
         this.first = null   // Arc
+    }
+
+    toString() {
+        return `${this.data.toString()}`
     }
 }
 
@@ -380,5 +398,15 @@ class Arc {
             return this.vertex1
         }
         return null
+    }
+
+    toString() {
+        return `
+            {
+                v1: ${this.vertex1.toString()},
+                v2: ${this.vertex2.toString()},
+                info: ${this.info ? this.info.toString() : null},
+            }
+        `
     }
 }
