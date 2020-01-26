@@ -219,9 +219,10 @@ bst.remove(13)
 + [HashTalbe](src/HashTable/HashTable.js)
 + [BinarySearchTree](src/Tree/BinarySearchTree.js)
 + [RedBlackTree](src/Tree/RedBlackTree.js)
++ [UndirectedGraph](src/Graph/UndirectedGraph.js)
 
 coming soon:
-+ Graph
++ DirectedGraph
 
 ### Original data structures in JavaScript:
 
