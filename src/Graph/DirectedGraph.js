@@ -1,104 +1,85 @@
+/**
+ * Copyright (c) 2020
+ * 
+ * MIT
+ *
+ * implement of directed graph
+ *
+ * @summary directed graph
+ * @author CoderMonkey <maonianyou@gmail.com>
+ *
+ * Created at     : 2020-01-22 21:35:06
+ * Last modified  : 2020-01-27 20:58:02
+ */
 import {
-    eqComparer
+    isFunction,
 } from '../common/toollib'
+import {
+    Stack
+} from '../Stack.js'
+import {
+    GraphBase,
+    VisitStatus,
+} from './GraphBase'
+import { Queue } from '../Queue/Queue'
 
 /**
+ * @description
  * 有向图
- * 使用多重链表实现
+ * 使用十字链表实现
+ * 
  * @export
  * @class DirectedGraph
  */
-export class DirectedGraph {
+export class DirectedGraph extends GraphBase {
     constructor(customizedComparer = null) {
-        this.__comparator = eqComparer(customizedComparer)
-        this.__vertexes = []
-        this.__arcs = []
-
-        /**
-         * 给顶点添加入边
-         * @param {VertexNode} v
-         * @param {Arc} arc
-         */
-        this.__addInArc = function(v, arc) {
-            let adjArc = v.firstIn
-
-            // 没有入边
-            if (adjArc === null) {
-                v.firstIn = arc
-            }
-            // 已有入边
-            else {
-                while(!adjArc.nextIn) {
-                    adjArc = adjArc.nextIn
-                }
-                adjArc.nextIn = arc
-            }
-        }
-
-        /**
-         * 给顶点添加出边
-         * @param {VertexNode} v
-         * @param {Arc} arc
-         */
-        this.__addOutArc = function(v, arc) {
-            let adjArc = v.firstOut
-            
-            // 没有出边
-            if(adjArc === null) {
-                v.firstOut = arc
-            }
-            // 已有出边
-            else {
-                while(!adjArc.nextOut) {
-                    adjArc = adjArc.nextOut
-                }
-                adjArc.nextOut = arc
-            }
-        }
+        super(customizedComparer)
 
         this.toString = function () {
+            let str = ''
+            this.__vertexes.forEach(v => {
 
+                str += `${v.data.toString()} ->\r\n    Out: [`
+
+                let arcOut = v.firstOut
+                while (arcOut) {
+                    str += `${arcOut.end.data.toString()},`
+                    arcOut = arcOut.nextOut
+                }
+
+                str += '],\r\n    In:   ['
+
+                let arcIn = v.firstIn
+                while (arcIn) {
+                    str += `${arcIn.start.data.toString()}`,
+                    arcIn= arcIn.nextIn
+                }
+
+                str += ']\r\n'
+            })
+            return str
         }
     }
 
     /**
-     * 顶点个数
-     *
-     * @readonly
-     * @memberof DirectedGraph
-     */
-    get vertexCount() {
-        return this.__vertexes.length
-    }
-
-    /**
-     * 边的条数
-     *
-     * @readonly
-     * @memberof DirectedGraph
-     */
-    get arcCount() {
-        return this.__arcs.length
-    }
-
-    /**
-     * 添加顶点
+     * @description 添加顶点
      *
      * @param {*} data 顶点数据
      * @returns 添加结果：成功true/失败false
      * @memberof DirectedGraph
      */
     addVertex(data) {
+        if (data == null) throw new Error(`parameter error: data is ${data}`)
         if (this.hasVertex(data)) return false
 
         let v = new VertexNode(data)
         this.__vertexes.push(v)
-        
+
         return true
     }
 
     /**
-     * 添加/更新边
+     * @description 添加/更新边
      *
      * @param {*} o1 顶点数据1
      * @param {*} o2 顶点数据2
@@ -107,19 +88,28 @@ export class DirectedGraph {
      * @memberof DirectedGraph
      */
     setArc(o1, o2, info = null) {
-        let v1 = this.findVertex(o1)
-        let v2 = this.findVertex(o2)
+        let v1 = this.__findVertex(o1)
+        let v2 = this.__findVertex(o2)
 
-        // 两个顶点必须都存在才可以添加边
-        if (v1 === undefined || v2 === undefined) {
-            return false
-        }
+        let arc = null
 
         // 检查该边是否存在
-        let arc = this.findArc(o1, o2)
+        if (v1 && v2) {
+            arc = this.__findArc(v1, v2)
+        } else {
+            if (!v1) {
+                v1 = new VertexNode(data1)
+                this.__vertexes.push(v1)
+            }
+
+            if (!v2) {
+                v2 = new VertexNode(data2)
+                this.__vertexes.push(v2)
+            }
+        }
 
         // 不存在：添加边
-        if (arc === undefined) {
+        if (!arc) {
             arc = new Arc(v1, v2, info)
 
             // 从 v1 到 v2，画一条边线(v1 的出边，v2 的入边)
@@ -135,78 +125,253 @@ export class DirectedGraph {
     }
 
     /**
-     * 检查顶点是否存在
+     * @description 广度优先遍历
      *
-     * @param {*} data 顶点数据
-     * @returns 存在true/不存在false
-     * @memberof DirectedGraph
+     * @param {*} start 遍历的起始顶点
+     * @param {function} callback 回调函数
+     * @memberof UndirectedGraph
      */
-    hasVertex(data) {
-        const ret = this.findVertex(data)
-        return (ret !== undefined ? true : false)
+    bfsTraverse(start, callback) {
+        if (this.vertexCount === 0) return
+
+        let vertex = null
+
+        // 参数检查：
+        // --1. 两个参数的时候：指定起点和遍历的回调函数
+        if (start && callback) {
+            if (!isFunction(callback)) throw new Error(`${callback} is not a function.`)
+
+            vertex = this.__findVertex(start)
+            if (vertex === undefined) throw new Error(`vertex of ${start} doesnot exist.`)
+        }
+        // --2.1 一个参数的时候，仅指定遍历的回调函数
+        else if (isFunction(start) && !callback) {
+            callback = start
+            start = null
+            vertex = this.__vertexes[0]
+        }
+        // --2.2 两个参数的时候，仅指定遍历的回调函数
+        else if (start == null && isFunction(callback)) {
+            vertex = this.__vertexes[0]
+        }
+        // --3. 参数错误的其它情况
+        else {
+            throw new Error(`parameter error: need [vStart, callback] or [callback].\r\nreceived: ${start}, ${callback}`)
+        }
+
+        // 广度优先：使用队列
+        let queue = new Queue()
+        // 初始化探索状态
+        let map = this.__initVisitStatus()
+
+        while (vertex) {
+            // 如果当前顶点未被探索，则探索（回调访问）
+            if (map.get(vertex) !== VisitStatus.VISITED) {
+                let stop = callback(vertex.data)
+                if (stop) return
+                map.set(vertex, VisitStatus.VISITED)
+            }
+
+            let arc = vertex.firstOut
+
+            while (arc) {
+                let vEnd = arc.end
+
+                // 如果另一端顶点未被发现或探索，则加入队列并标记
+                if (map.get(vEnd) === VisitStatus.INIT) {
+                    queue.enqueue(vEnd)
+                    map.set(vEnd, VisitStatus.DISCOVERED)
+                }
+
+                // 下一组出边
+                arc = arc.nextOut
+            }
+
+            // 下一层顶点
+            vertex = (queue.dequeue() || this.__getNextVertex(map))
+        }
     }
 
     /**
-     * 查找顶点
+     * @description 深度优先遍历
      *
-     * @param {*} data 顶点数据
-     * @returns 顶点/undefined
+     * @param {*} start 遍历的起始顶点
+     * @param {function} callback 回调函数
+     * @memberof UndirectedGraph
+     */
+    dfsTraverse(start, callback) {
+        if (this.vertexCount === 0) return
+
+        let vertex = null
+
+        // 参数检查：
+        // --1. 两个参数的时候：指定起点和遍历的回调函数
+        if (start && callback) {
+            if (!isFunction(callback)) throw new Error(`${callback} is not a function.`)
+
+            vertex = this.__findVertex(start)
+            if (vertex === undefined) throw new Error(`vertex of ${start} doesnot exist.`)
+        }
+        // --2.1 一个参数的时候，仅指定遍历的回调函数
+        else if (isFunction(start) && !callback) {
+            callback = start
+            start = null
+            vertex = this.__vertexes[0]
+        }
+        // --2.2 两个参数的时候，仅指定遍历的回调函数
+        else if (start == null && isFunction(callback)) {
+            vertex = this.__vertexes[0]
+        }
+        // --3. 参数错误的其它情况
+        else {
+            throw new Error(`parameter error: need [vStart, callback] or [callback].\r\nreceived: ${start}, ${callback}`)
+        }
+
+        // 深度优先：使用栈
+        let stack = new Stack()
+        // 初始化探索状态
+        let map = this.__initVisitStatus()
+
+        while (vertex) {
+            // 如果未探索该顶点，则探索（回调）并标记
+            if (map.get(vertex) !== VisitStatus.VISITED) {
+                let stop = callback(vertex.data)
+                if (stop) return
+                
+                map.set(vertex, VisitStatus.VISITED)
+                stack.push(vertex)
+            }
+
+            let arc = vertex.firstOut
+
+            while (arc) {
+                let vNext = arc.end
+
+                // 如果未探索，则探索（回调）并标记
+                if (map.get(vNext) !== VisitStatus.VISITED) {
+                    callback(vNext.data)
+                    map.set(vNext, VisitStatus.VISITED)
+
+                    // 记录该顶点以备回溯
+                    stack.push(vNext)
+                    
+                    arc = vNext.firstOut
+                }
+                // 回溯后探索其它分支
+                else {
+                    arc = arc.nextOut
+                }
+            }
+
+            // 回溯或跳转顶点
+            vertex = (stack.pop() || this.__getNextVertex(map))
+        }
+    }
+
+    /**
+     * @description 给顶点添加入边
+     * 
+     * @param {VertexNode} v
+     * @param {Arc} arc
+     */
+    __addInArc(v, arc) {
+        let adjArc = v.firstIn
+
+        // 没有入边
+        if (adjArc === null) {
+            v.firstIn = arc
+        }
+        // 已有入边
+        else {
+            while (adjArc.nextIn) {
+                adjArc = adjArc.nextIn
+            }
+            adjArc.nextIn = arc
+        }
+    }
+
+    /**
+     * @description 给顶点添加出边
+     * 
+     * @param {VertexNode} v
+     * @param {Arc} arc
+     */
+    __addOutArc(v, arc) {
+        let adjArc = v.firstOut
+
+        // 没有出边
+        if (adjArc === null) {
+            v.firstOut = arc
+        }
+        // 已有出边
+        else {
+            while (adjArc.nextOut) {
+                adjArc = adjArc.nextOut
+            }
+            adjArc.nextOut = arc
+        }
+    }
+
+    /**
+     * @description 查找边
+     *
+     * @param {VertexNode} v1 顶点1
+     * @param {VertexNode} v2 顶点2
+     * @returns Arc | undefined
      * @memberof DirectedGraph
      */
-    findVertex(data) {
-        if (this.vertexCount === 0) return undefined
+    __findArc(v1, v2) {
+        let arc = v1.firstOut
+        while (arc) {
+            if (v2 === arc.end) return arc
+            arc = arc.nextOut
+        }
+    }
 
-        return this.__vertexes.find(v=>{
-            return this.__comparator(v.data, data)
+    /**
+     * @description 
+     * 如果指定的起始顶点没有出边，
+     * 则无法进行后面其它顶点的遍历，
+     * 这里找出下一个未访问过的顶点，
+     * 继续循环遍历（广度/深度优先）
+     *
+     * @param {Map<VertexNode, VisitStatus>} map
+     * @memberof DirectedGraph
+     */
+    __getNextVertex(map) {
+        let list = Array.from(map)
+        let statusKV = list.find(kv => {
+            return kv[1] !== VisitStatus.VISITED
         })
+        let vertex = statusKV && statusKV[0]
+        return vertex
     }
 
-    /**
-     * 检查边是否存在
-     *
-     * @param {*} o1 顶点数据1
-     * @param {*} o2 顶点数据2
-     * @returns 存在true/不存在false
-     * @memberof DirectedGraph
-     */
-    hasArc(o1, o2) {
-        const ret = this.findVertex(o1, o2)
-        return (ret !== undefined ? true : false)
-    }
-
-    /**
-     * 查找边
-     *
-     * @param {*} o1 顶点数据1
-     * @param {*} o2 顶点数据2
-     * @returns 边/undefined
-     * @memberof DirectedGraph
-     */
-    findArc(o1, o2) {
-        if (this.arcCount === 0) return undefined
-
-        return this.__arcs.find(arc=>{
-            return (this.__comparator(arc.start.data, o1) && this.__comparator(arc.end.data, o2))
-        })
-    }
-
-    breadthFirstTraverse(vStart) {
-        
-    }
-
-    depthFirstTraverse(vStart) {
-
-    }
 }
 
+/**
+ * @description 有向图内部用顶点类
+ *
+ * @class VertexNode
+ */
 class VertexNode {
     constructor(data) {
+        if (data == null) throw new Error(`vertex cannot be null`)
         this.data = data
         this.firstIn = null     // Arc
         this.firstOut = null    // Arc
     }
+
+    toString() {
+        return `${this.data.toString()}`
+    }
 }
 
+/**
+ * @description 有向图内部用边类
+ *
+ * @class Arc
+ */
 class Arc {
     constructor(start, end, info = null) {
         this.start = start      // VertexNode
@@ -214,5 +379,15 @@ class Arc {
         this.nextIn = null      // Arc
         this.nextOut = null     // Arc
         this.info = info        // Weight info etc.
+    }
+    
+    toString() {
+        return `
+            {
+                start: ${this.start.toString()},
+                end: ${this.end.toString()},
+                info: ${this.info ? this.info.toString() : null},
+            }
+        `
     }
 }
