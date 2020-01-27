@@ -8,7 +8,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  *
  * Created at     : 2020-01-24 15:17:02
- * Last modified  : 2020-01-27 20:15:59
+ * Last modified  : 2020-01-27 20:58:10
  */
 import {
     GraphBase,
@@ -25,8 +25,10 @@ import {
 } from '../Queue/Queue.js'
 
 /**
+ * @description 
+ * 无向图
+ * 使用邻接多重表实现
  * 
- * @description 使用邻接多重表实现无向图
  * @export UndirectedGraph
  * @class UndirectedGraph
  */
