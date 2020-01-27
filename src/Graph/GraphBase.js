@@ -8,7 +8,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  * 
  * Created at     : 2020-01-25 00:00:00 
- * Last modified  : 2020-01-27 19:12:20
+ * Last modified  : 2020-01-27 19:50:02
  */
 import {
     eqComparer
@@ -24,7 +24,7 @@ export class GraphBase {
     constructor(customizedComparer = null) {
         this.__comparator = eqComparer(customizedComparer)
         this.__vertexes = []
-        this.__arcs = []
+        // this.__arcs = []
     }
     
     /**
@@ -43,9 +43,9 @@ export class GraphBase {
      * @readonly
      * @memberof GraphBase
      */
-    get arcCount() {
-        return this.__arcs.length
-    }
+    // get arcCount() {
+    //     return this.__arcs.length
+    // }
 
     /**
      * @description 检查顶点是否存在
@@ -58,6 +58,25 @@ export class GraphBase {
         if (data == null) throw new Error(`parameter error: data is ${data}`)
         const ret = this.__findVertex(data)
         return (ret !== undefined ? true : false)
+    }
+
+    /**
+     * @description 检查边是否存在
+     *
+     * @param {*} o1 顶点数据1
+     * @param {*} o2 顶点数据2
+     * @returns 存在true/不存在false
+     * @memberof DirectedGraph
+     */
+    hasArc(o1, o2) {
+        if (!o1 || !o2) return false
+
+        const v1 = this.__findVertex(o1)
+        const v2 = this.__findVertex(o2)
+        if(!v1 || !v2) return false
+
+        const arc = this.__findArc(v1, v2)
+        return (arc !== undefined ? true : false)
     }
 
     /**
@@ -87,6 +106,19 @@ export class GraphBase {
         return this.__vertexes.find(v => {
             return this.__comparator(v.data, data)
         })
+    }
+
+    /**
+     * @abstract
+     * @description 查找边
+     * 
+     * @param {VertexNode} v1 顶点1
+     * @param {VertexNode} v2 顶点2
+     * @returns Arc | undefined
+     * @memberof DirectedGraph
+     */
+    __findArc(v1, v2) {
+        throw new Error(`must be implemented by child class`)
     }
 
 }
