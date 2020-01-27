@@ -9,7 +9,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  *
  * Created at     : 2020-01-25 12:17:09 
- * Last modified  : 2020-01-26 19:12:58
+ * Last modified  : 2020-01-27 16:00:35
  */
 const { UndirectedGraph } = require('../../lib/Graph/UndirectedGraph')
 // const { UndirectedGraph } = require('data-struct-js')
@@ -77,11 +77,11 @@ function testUndirectedGraph() {
     console.log(udgraph.toString())
 
     // 广度优先遍历
-    console.log('Breath First Search 01 : ')
+    console.log('----Breath First Search 01 : ----')
     udgraph.bfsTraverse(vA, vTraverseFunc)
-    console.log('Breath First Search 02 : ')
+    console.log('----Breath First Search 02 : ----')
     udgraph.bfsTraverse(vTraverseFunc)
-    console.log('Breath First Search 03: ')
+    console.log('----Breath First Search 03: ----')
     udgraph.bfsTraverse(null, vTraverseFunc)
 
     // 深度优先遍历
