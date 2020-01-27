@@ -8,7 +8,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  *
  * Created at     : 2020-01-24 15:17:02
- * Last modified  : 2020-01-26 23:26:51
+ * Last modified  : 2020-01-27 15:07:10
  */
 import {
     GraphBase,
@@ -129,46 +129,45 @@ export class UndirectedGraph extends GraphBase {
         let vertex = null
 
         // 参数检查：
-        //  1. 两个参数的时候：指定起点和遍历的回调函数
+        // --1. 两个参数的时候：指定起点和遍历的回调函数
         if (start && callback) {
             if (!isFunction(callback)) throw new Error(`${callback} is not a function.`)
 
             vertex = this.__findVertex(start)
             if (vertex === undefined) throw new Error(`vertex of ${start} doesnot exist.`)
         }
-        //  2.1 一个参数的时候，仅指定遍历的回调函数
+        // --2.1 一个参数的时候，仅指定遍历的回调函数
         else if (isFunction(start) && !callback) {
             callback = start
             start = null
             vertex = this.__vertexes[0]
         }
-        //  2.2 两个参数的时候，仅指定遍历的回调函数
+        // --2.2 两个参数的时候，仅指定遍历的回调函数
         else if (start == null && isFunction(callback)) {
             vertex = this.__vertexes[0]
         }
-        //  3. 参数错误的其它情况
+        // --3. 参数错误的其它情况
         else {
             throw new Error(`parameter error: need [vStart, callback] or [callback].\r\nreceived: ${start}, ${callback}`)
         }
 
         // 广度优先：使用队列
         let queue = new Queue()
+        // 初始化探索状态
         let map = this.__initVisitStatus()
 
-        queue.enqueue(vertex)
-
-        while (!queue.isEmpty) {
-            let currentV = queue.dequeue()
-            let arc = currentV.first
-
+        while (vertex) {
             // 如果当前顶点未被探索，则探索（回调访问）
-            if (map.get(currentV) !== VisitStatus.VISITED) {
-                callback(currentV.data)
-                map.set(currentV, VisitStatus.VISITED)
+            if (map.get(vertex) !== VisitStatus.VISITED) {
+                let stop = callback(vertex.data)
+                if (stop) return
+                map.set(vertex, VisitStatus.VISITED)
             }
 
+            let arc = vertex.first
+
             while (arc) {
-                let otherVertex = arc.otherVertex(currentV)
+                let otherVertex = arc.otherVertex(vertex)
 
                 // 如果另一端顶点未被发现或探索，则加入队列并标记
                 if (map.get(otherVertex) === VisitStatus.INIT) {
@@ -176,8 +175,11 @@ export class UndirectedGraph extends GraphBase {
                     map.set(otherVertex, VisitStatus.DISCOVERED)
                 }
 
-                arc = arc.nextArc(currentV)
+                arc = arc.nextArc(vertex)
             }
+            
+            // 下一层顶点
+            vertex = queue.dequeue()
         }
     }
 
@@ -194,41 +196,42 @@ export class UndirectedGraph extends GraphBase {
         let vertex = null
 
         // 参数检查：
-        //  1. 两个参数的时候：指定起点和遍历的回调函数
+        // --1. 两个参数的时候：指定起点和遍历的回调函数
         if (start && callback) {
             if (!isFunction(callback)) throw new Error(`${callback} is not a function.`)
 
             vertex = this.__findVertex(start)
             if (vertex === undefined) throw new Error(`vertex of ${start} doesnot exist.`)
         }
-        //  2.1 一个参数的时候，仅指定遍历的回调函数
+        // --2.1 一个参数的时候，仅指定遍历的回调函数
         else if (isFunction(start) && !callback) {
             callback = start
             start = null
             vertex = this.__vertexes[0]
         }
-        //  2.2 两个参数的时候，仅指定遍历的回调函数
+        // --2.2 两个参数的时候，仅指定遍历的回调函数
         else if (start == null && isFunction(callback)) {
             vertex = this.__vertexes[0]
         }
-        //  3. 参数错误的其它情况
+        // --3. 参数错误的其它情况
         else {
             throw new Error(`parameter error: need [vStart, callback] or [callback].\r\nreceived: ${start}, ${callback}`)
         }
 
         // 深度优先：使用栈
         let stack = new Stack()
+        // 初始化探索状态
         let map = this.__initVisitStatus()
-        stack.push(vertex)
 
-        while (vertex) {
+        // 作为入口的首个顶点直接探索（回调）并标记
+        let stop = callback(vertex.data)
+        if (stop) return
+        map.set(vertex, VisitStatus.VISITED)
+        // 回溯用
+        stack.push(vertex);
+
+        while (vertex) {            
             let arc = vertex.first
-
-            // 如果未探索该顶点，则探索（回调）并标记
-            if (map.get(vertex) !== VisitStatus.VISITED) {
-                callback(vertex.data)
-                map.set(vertex, VisitStatus.VISITED)
-            }
 
             while (arc) {
                 // 根据深度优先原则，探索另一端顶点
@@ -236,7 +239,8 @@ export class UndirectedGraph extends GraphBase {
 
                 // 如果未探索，则探索（回调）并标记
                 if (map.get(otherVertex) !== VisitStatus.VISITED) {
-                    callback(otherVertex.data)
+                    stop = callback(otherVertex.data)
+                    if (stop) return
                     map.set(otherVertex, VisitStatus.VISITED)
                     
                     // 记录该顶点以备回溯
@@ -285,20 +289,6 @@ export class UndirectedGraph extends GraphBase {
             arc = arc.nextArc(v1)
         }
         return null
-    }
-
-    /**
-     * @description 初始化所以顶点的探索状态
-     *
-     * @returns Map
-     * @memberof UndirectedGraph
-     */
-    __initVisitStatus() {
-        let map = new Map()
-        this.__vertexes.forEach(v => {
-            map.set(v, VisitStatus.INIT)
-        })
-        return map
     }
 
     /**

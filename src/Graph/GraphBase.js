@@ -8,7 +8,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  * 
  * Created at     : 2020-01-25 00:00:00 
- * Last modified  : 2020-01-26 00:49:05
+ * Last modified  : 2020-01-26 23:51:09
  */
 import {
     eqComparer
@@ -45,6 +45,20 @@ export class GraphBase {
      */
     get arcCount() {
         return this.__arcs.length
+    }
+
+    /**
+     * @description 初始化所以顶点的探索状态
+     *
+     * @returns Map
+     * @memberof UndirectedGraph
+     */
+    __initVisitStatus() {
+        let map = new Map()
+        this.__vertexes.forEach(v => {
+            map.set(v, VisitStatus.INIT)
+        })
+        return map
     }
 
 }
