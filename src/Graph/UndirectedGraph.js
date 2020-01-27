@@ -8,7 +8,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  *
  * Created at     : 2020-01-24 15:17:02
- * Last modified  : 2020-01-27 15:07:10
+ * Last modified  : 2020-01-27 16:44:56
  */
 import {
     GraphBase,
@@ -257,21 +257,6 @@ export class UndirectedGraph extends GraphBase {
             // 回溯
             vertex = stack.pop()
         }
-    }
-    
-    /**
-     * @description 查找顶点
-     *
-     * @param {*} data
-     * @returns VertexNode | undefined
-     * @memberof UndirectedGraph
-     */
-    __findVertex(data) {
-        if (this.vertexCount === 0) return undefined
-
-        return this.__vertexes.find(v => {
-            return this.__comparator(v.data, data)
-        })
     }
 
     /**

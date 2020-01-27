@@ -8,7 +8,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  * 
  * Created at     : 2020-01-25 00:00:00 
- * Last modified  : 2020-01-26 23:51:09
+ * Last modified  : 2020-01-27 16:26:31
  */
 import {
     eqComparer
@@ -59,6 +59,21 @@ export class GraphBase {
             map.set(v, VisitStatus.INIT)
         })
         return map
+    }
+
+    /**
+     * @description 查找顶点
+     *
+     * @param {*} data 顶点数据
+     * @returns 顶点/undefined
+     * @memberof DirectedGraph
+     */
+    __findVertex(data) {
+        if (this.vertexCount === 0) return undefined
+
+        return this.__vertexes.find(v => {
+            return this.__comparator(v.data, data)
+        })
     }
 
 }
