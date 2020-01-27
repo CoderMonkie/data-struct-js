@@ -8,7 +8,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  *
  * Created at     : 2020-01-24 15:17:02
- * Last modified  : 2020-01-27 19:04:31
+ * Last modified  : 2020-01-27 20:15:59
  */
 import {
     GraphBase,
@@ -120,7 +120,7 @@ export class UndirectedGraph extends GraphBase {
     }
 
     /**
-     * 广度优先遍历
+     * @description 广度优先遍历
      *
      * @param {*} start 遍历的起始顶点
      * @param {function} callback 回调函数
@@ -187,7 +187,7 @@ export class UndirectedGraph extends GraphBase {
     }
 
     /**
-     * 深度优先遍历
+     * @description 深度优先遍历
      *
      * @param {*} start 遍历的起始顶点
      * @param {function} callback 回调函数
