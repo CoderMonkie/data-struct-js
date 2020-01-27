@@ -9,7 +9,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  *
  * Created at     : 2020-01-25 12:17:09 
- * Last modified  : 2020-01-27 16:00:35
+ * Last modified  : 2020-01-27 20:08:36
  */
 const { UndirectedGraph } = require('../../lib/Graph/UndirectedGraph')
 // const { UndirectedGraph } = require('data-struct-js')
@@ -41,6 +41,7 @@ function testUndirectedGraph() {
     const vG = new TestVertext('G')
     const vH = new TestVertext('H')
     const vI = new TestVertext('I')
+    const vJ = new TestVertext('J') // Not add
 
     const vTraverseFunc = function (v) {
         console.log(`Traversing: ${v.toString()}`)
@@ -91,6 +92,18 @@ function testUndirectedGraph() {
     udgraph.dfsTraverse(vTraverseFunc)
     console.log('----Depth First Search 03: ----')
     udgraph.dfsTraverse(null, vTraverseFunc)
+
+    console.log(`---------------------------`)
+    console.log(`Vertex-Count：${udgraph.vertexCount}`)
+
+    // 检查顶点是否存在
+    console.log(`A exists: ${udgraph.hasVertex(vA)}`)
+    console.log(`J exists: ${udgraph.hasVertex(vJ)}`)
+
+    // 检查边是否存在
+    console.log(`B->F: ${udgraph.hasArc(vB, vF)}`)
+    console.log(`F->B: ${udgraph.hasArc(vF, vB)}`)
+    console.log(`A->J: ${udgraph.hasArc(vA, vJ)}`)
 }
 
 module.exports = testUndirectedGraph
