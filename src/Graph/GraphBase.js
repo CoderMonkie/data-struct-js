@@ -8,7 +8,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  * 
  * Created at     : 2020-01-25 00:00:00 
- * Last modified  : 2020-01-27 16:26:31
+ * Last modified  : 2020-01-27 19:12:20
  */
 import {
     eqComparer
@@ -48,6 +48,19 @@ export class GraphBase {
     }
 
     /**
+     * @description 检查顶点是否存在
+     *
+     * @param {*} data 顶点数据
+     * @returns 存在true/不存在false
+     * @memberof DirectedGraph
+     */
+    hasVertex(data) {
+        if (data == null) throw new Error(`parameter error: data is ${data}`)
+        const ret = this.__findVertex(data)
+        return (ret !== undefined ? true : false)
+    }
+
+    /**
      * @description 初始化所以顶点的探索状态
      *
      * @returns Map
@@ -78,8 +91,11 @@ export class GraphBase {
 
 }
 
+/**
+ * @description 探索标记
+ */
 export const VisitStatus = {
-    INIT: 'Init',
-    DISCOVERED: 'Discovered',
-    VISITED: 'Visited',
+    INIT: 'Init',               // 初始状态
+    DISCOVERED: 'Discovered',   // 已发现未探索
+    VISITED: 'Visited',         // 已探索
 }

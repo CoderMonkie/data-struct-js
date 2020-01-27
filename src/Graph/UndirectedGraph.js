@@ -8,7 +8,7 @@
  * @author CoderMonkey <maonianyou@gmail.com>
  *
  * Created at     : 2020-01-24 15:17:02
- * Last modified  : 2020-01-27 16:44:56
+ * Last modified  : 2020-01-27 19:04:31
  */
 import {
     GraphBase,
@@ -71,8 +71,12 @@ export class UndirectedGraph extends GraphBase {
      */
     addVertex(data) {
         if (data == null) throw new Error(`parameter error: data is ${data}`)
+        if (this.hasVertex(data)) return false
+
         let v = new VertexNode(data)
         this.__vertexes.push(v)
+
+        return true
     }
 
     /**
@@ -88,9 +92,8 @@ export class UndirectedGraph extends GraphBase {
         let v2 = this.__findVertex(data2)
 
         let arc
-        // let arc = this.__findArc(v1.first, v1, v2) || this.__findArc(v2.first, v2, v1)
         if (v1 && v2) {
-            arc = this.__findArc(v1.first, v1, v2)
+            arc = this.__findArc(v1, v2)
         }
         else {
             if (!v1) {
@@ -262,13 +265,13 @@ export class UndirectedGraph extends GraphBase {
     /**
      * @description 查找边
      *
-     * @param {Arc} arc
      * @param {VertexNode} v1
      * @param {VertexNode} v2
      * @returns Arc | null
      * @memberof UndirectedGraph
      */
-    __findArc(arc, v1, v2) {
+    __findArc(v1, v2) {
+        let arc = v1.first
         while (arc) {
             if (arc.hasVertex(v2)) return arc
             arc = arc.nextArc(v1)
